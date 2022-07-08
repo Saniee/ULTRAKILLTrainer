@@ -14,3 +14,5 @@ You can get info here on how to use the Trainer (Its very easy)
 
 Request new features:
 [Feature Request LINK](https://github.com/Saniee/ULTRAKILLTrainer/issues)
+
+## Footnotes
