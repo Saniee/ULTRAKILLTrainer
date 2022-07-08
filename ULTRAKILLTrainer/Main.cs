@@ -1,4 +1,7 @@
 using Memory;
+using System.Collections;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ULTRAKILLTrainer
 {
@@ -6,13 +9,24 @@ namespace ULTRAKILLTrainer
     {
         Mem m = new Mem();
 
+        [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+        static extern bool VirtualFreeEx(IntPtr hProcess, UIntPtr lpAddress, UIntPtr dwSize, uint dwFreeType);
+
+        public bool DeAllocRegion(UIntPtr codecavebase, IntPtr openedHandle)
+        {
+            // maybe check if codecavebase is uintptr.zero and openedhandle is intptr.zero etc
+
+            return VirtualFreeEx(openedHandle, codecavebase, (UIntPtr)0, 0x00008000);
+        }
+
         public Main()
         {
             InitializeComponent();
         }
 
         bool ProcOpen = false;
-
+        private UIntPtr codeCaveDamage;
+        long aobDamageScan;
 
         private void Main_Shown(object sender, EventArgs e)
         {
@@ -92,6 +106,36 @@ namespace ULTRAKILLTrainer
             else
             {
                 m.UnfreezeValue("UnityPlayer.dll+01815FA0,A90,180,D0,48,F0,0,4C");
+            }
+        }
+
+        private async void OneShot_CheckedChanged(object sender, EventArgs e)
+        {
+            if (OneShot.Checked)
+            {
+                byte[] newBytes =
+                {
+                    0xC7, 0x45, 0x30, 0x00, 0x00, 0x7A, 0x44,
+                };
+                aobDamageScan = (await m.AoBScan("F3 0F 11 6D 30 49 8B 47")).FirstOrDefault();
+                codeCaveDamage = m.CreateCodeCave(aobDamageScan.ToString("X"), newBytes, 5, 2048);
+            }
+            else
+            {
+                DeAllocRegion(codeCaveDamage, m.mProc.Handle);
+                m.WriteMemory(aobDamageScan.ToString("X"), "bytes", "F3 0F 11 6D 30");
+            }
+        }
+
+        private void InfJump_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!InfJump.Checked)
+            {
+                m.FreezeValue("mono-2.0-bdwgc.dll+004A6418,280,540,F0,0,1B0", "int", "0");
+            }
+            else
+            {
+                m.UnfreezeValue("mono-2.0-bdwgc.dll+004A6418,280,540,F0,0,1B0");
             }
         }
     }

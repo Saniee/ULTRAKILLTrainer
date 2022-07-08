@@ -38,6 +38,8 @@
             this.InfNailgun = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.OneShot = new System.Windows.Forms.CheckBox();
+            this.InfJump = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,7 +54,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(118, 157);
+            this.label1.Location = new System.Drawing.Point(118, 209);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(96, 21);
             this.label1.TabIndex = 0;
@@ -63,7 +65,7 @@
             // 
             this.ProcOpenLabel.AutoSize = true;
             this.ProcOpenLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ProcOpenLabel.Location = new System.Drawing.Point(118, 178);
+            this.ProcOpenLabel.Location = new System.Drawing.Point(118, 230);
             this.ProcOpenLabel.Name = "ProcOpenLabel";
             this.ProcOpenLabel.Size = new System.Drawing.Size(38, 21);
             this.ProcOpenLabel.TabIndex = 1;
@@ -116,7 +118,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::ULTRAKILLTrainer.Properties.Resources.tenebris_vector_art;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 157);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 209);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(100, 100);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -126,17 +128,41 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(118, 215);
+            this.label2.Location = new System.Drawing.Point(118, 267);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(101, 42);
             this.label2.TabIndex = 7;
             this.label2.Text = "Made By\r\nSaniee#0007";
             // 
+            // OneShot
+            // 
+            this.OneShot.AutoSize = true;
+            this.OneShot.Location = new System.Drawing.Point(12, 136);
+            this.OneShot.Name = "OneShot";
+            this.OneShot.Size = new System.Drawing.Size(156, 25);
+            this.OneShot.TabIndex = 8;
+            this.OneShot.Text = "One Shot Enemies";
+            this.OneShot.UseVisualStyleBackColor = true;
+            this.OneShot.CheckedChanged += new System.EventHandler(this.OneShot_CheckedChanged);
+            // 
+            // InfJump
+            // 
+            this.InfJump.AutoSize = true;
+            this.InfJump.Location = new System.Drawing.Point(12, 167);
+            this.InfJump.Name = "InfJump";
+            this.InfJump.Size = new System.Drawing.Size(119, 25);
+            this.InfJump.TabIndex = 9;
+            this.InfJump.Text = "Infinite Jump";
+            this.InfJump.UseVisualStyleBackColor = true;
+            this.InfJump.CheckedChanged += new System.EventHandler(this.InfJump_CheckedChanged);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(239, 266);
+            this.ClientSize = new System.Drawing.Size(239, 321);
+            this.Controls.Add(this.InfJump);
+            this.Controls.Add(this.OneShot);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.InfNailgun);
@@ -169,5 +195,7 @@
         private CheckBox InfNailgun;
         private PictureBox pictureBox1;
         private Label label2;
+        private CheckBox OneShot;
+        private CheckBox InfJump;
     }
 }
