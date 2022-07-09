@@ -40,7 +40,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.OneShot = new System.Windows.Forms.CheckBox();
             this.InfJump = new System.Windows.Forms.CheckBox();
+            this.walkSpeedBar = new System.Windows.Forms.TrackBar();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.jumpForceBar = new System.Windows.Forms.TrackBar();
+            this.InfCoins = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.walkSpeedBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.jumpForceBar)).BeginInit();
             this.SuspendLayout();
             // 
             // BGWorker
@@ -137,6 +144,7 @@
             // OneShot
             // 
             this.OneShot.AutoSize = true;
+            this.OneShot.Enabled = false;
             this.OneShot.Location = new System.Drawing.Point(12, 136);
             this.OneShot.Name = "OneShot";
             this.OneShot.Size = new System.Drawing.Size(156, 25);
@@ -156,11 +164,69 @@
             this.InfJump.UseVisualStyleBackColor = true;
             this.InfJump.CheckedChanged += new System.EventHandler(this.InfJump_CheckedChanged);
             // 
+            // walkSpeedBar
+            // 
+            this.walkSpeedBar.LargeChange = 250;
+            this.walkSpeedBar.Location = new System.Drawing.Point(242, 185);
+            this.walkSpeedBar.Maximum = 1500;
+            this.walkSpeedBar.Minimum = 750;
+            this.walkSpeedBar.Name = "walkSpeedBar";
+            this.walkSpeedBar.Size = new System.Drawing.Size(178, 45);
+            this.walkSpeedBar.SmallChange = 100;
+            this.walkSpeedBar.TabIndex = 10;
+            this.walkSpeedBar.Value = 750;
+            this.walkSpeedBar.ValueChanged += new System.EventHandler(this.walkSpeedBar_ValueChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(242, 161);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(91, 21);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Walk Speed";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(242, 243);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(90, 21);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Jump Force";
+            // 
+            // jumpForceBar
+            // 
+            this.jumpForceBar.Location = new System.Drawing.Point(242, 267);
+            this.jumpForceBar.Maximum = 275;
+            this.jumpForceBar.Minimum = 90;
+            this.jumpForceBar.Name = "jumpForceBar";
+            this.jumpForceBar.Size = new System.Drawing.Size(178, 45);
+            this.jumpForceBar.TabIndex = 13;
+            this.jumpForceBar.Value = 90;
+            this.jumpForceBar.ValueChanged += new System.EventHandler(this.jumpForceBar_ValueChanged);
+            // 
+            // InfCoins
+            // 
+            this.InfCoins.AutoSize = true;
+            this.InfCoins.Location = new System.Drawing.Point(230, 12);
+            this.InfCoins.Name = "InfCoins";
+            this.InfCoins.Size = new System.Drawing.Size(120, 25);
+            this.InfCoins.TabIndex = 14;
+            this.InfCoins.Text = "Infinite Coins";
+            this.InfCoins.UseVisualStyleBackColor = true;
+            this.InfCoins.CheckedChanged += new System.EventHandler(this.InfCoins_CheckedChanged);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(239, 321);
+            this.ClientSize = new System.Drawing.Size(432, 321);
+            this.Controls.Add(this.InfCoins);
+            this.Controls.Add(this.jumpForceBar);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.walkSpeedBar);
             this.Controls.Add(this.InfJump);
             this.Controls.Add(this.OneShot);
             this.Controls.Add(this.label2);
@@ -179,6 +245,8 @@
             this.Text = "ULTRAKILL Trainer";
             this.Shown += new System.EventHandler(this.Main_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.walkSpeedBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.jumpForceBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -197,5 +265,10 @@
         private Label label2;
         private CheckBox OneShot;
         private CheckBox InfJump;
+        private TrackBar walkSpeedBar;
+        private Label label3;
+        private Label label4;
+        private TrackBar jumpForceBar;
+        private CheckBox InfCoins;
     }
 }
