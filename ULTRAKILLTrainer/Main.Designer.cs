@@ -144,7 +144,6 @@
             // OneShot
             // 
             this.OneShot.AutoSize = true;
-            this.OneShot.Enabled = false;
             this.OneShot.Location = new System.Drawing.Point(12, 136);
             this.OneShot.Name = "OneShot";
             this.OneShot.Size = new System.Drawing.Size(156, 25);
@@ -198,7 +197,7 @@
             // jumpForceBar
             // 
             this.jumpForceBar.Location = new System.Drawing.Point(242, 267);
-            this.jumpForceBar.Maximum = 275;
+            this.jumpForceBar.Maximum = 180;
             this.jumpForceBar.Minimum = 90;
             this.jumpForceBar.Name = "jumpForceBar";
             this.jumpForceBar.Size = new System.Drawing.Size(178, 45);
@@ -241,6 +240,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
+            this.MdiChildrenMinimizedAnchorBottom = false;
             this.Name = "Main";
             this.Text = "ULTRAKILL Trainer";
             this.Shown += new System.EventHandler(this.Main_Shown);

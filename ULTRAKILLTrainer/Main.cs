@@ -8,6 +8,7 @@ namespace ULTRAKILLTrainer
     public partial class Main : Form
     {
         Mem m = new Mem();
+        private string errorCode = "0";
 
         [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
         static extern bool VirtualFreeEx(IntPtr hProcess, UIntPtr lpAddress, UIntPtr dwSize, uint dwFreeType);
@@ -23,6 +24,8 @@ namespace ULTRAKILLTrainer
         {
             InitializeComponent();
         }
+
+        private Form1 errorForm;
 
         bool ProcOpen = false;
         private UIntPtr codeCaveDamage;
@@ -122,23 +125,32 @@ namespace ULTRAKILLTrainer
 
         private async void OneShot_CheckedChanged(object sender, EventArgs e)
         {
+            errorCode = "404 PNTR";
             if (OneShot.Checked)
             {
                 byte[] newBytes =
                 {
                     0xC7, 0x45, 0x30, 0x00, 0x00, 0x7A, 0x44
                 };
-                // Start 1714AF13D50 
-                // End 1714AF14C83 
-                // F3 0F 11 6D 30 49 8B 47
-                aobDamageScan = (await m.AoBScan("F3 0F 11 6D 30 49 8B", false, true)).FirstOrDefault();
-                Debug.WriteLine("Scan complete with addres found: " + aobDamageScan.ToString("X"));
-                codeCaveDamage = m.CreateCodeCave(aobDamageScan.ToString("X"), newBytes, 5, 1000);
+                aobDamageScan = (await m.AoBScan("F3 0F 11 6D 30 49 8B 47", false, true)).FirstOrDefault();
+                if (aobDamageScan == 0)
+                {
+                    Debug.WriteLine("Scan Unsuccsesful.");
+                    errorForm = new Form1();
+                    errorForm.Show(errorCode);
+                } 
+                else
+                {
+                    Debug.WriteLine("Scan Succses! Addres found: " + aobDamageScan.ToString("X"));
+                    codeCaveDamage = m.CreateCodeCave(aobDamageScan.ToString("X"), newBytes, 5, 1000);
+                }
             }
             else
             {
                 DeAllocRegion(codeCaveDamage, m.mProc.Handle);
+                Debug.WriteLine("Deallocated Region " + aobDamageScan.ToString("X"));
                 m.WriteMemory(aobDamageScan.ToString("X"), "bytes", "F3 0F 11 6D 30");
+                Debug.WriteLine("Wrote original assembly into the scan address.");
             }
         }
 
