@@ -1,18 +1,46 @@
 using Memory;
+using System.Collections;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ULTRAKILLTrainer
 {
     public partial class Main : Form
     {
         Mem m = new Mem();
+        private string errorCode = "0";
+
+        [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+        static extern bool VirtualFreeEx(IntPtr hProcess, UIntPtr lpAddress, UIntPtr dwSize, uint dwFreeType);
+
+        public bool DeAllocRegion(UIntPtr codecavebase, IntPtr openedHandle)
+        {
+            // maybe check if codecavebase is uintptr.zero and openedhandle is intptr.zero etc
+
+            return VirtualFreeEx(openedHandle, codecavebase, (UIntPtr)0, 0x00008000);
+        }
 
         public Main()
         {
             InitializeComponent();
         }
 
-        bool ProcOpen = false;
+        private Form1 errorForm;
 
+        bool ProcOpen = false;
+        private UIntPtr codeCaveDamage;
+        long aobDamageScan;
+
+        string playerBase = "mono-2.0-bdwgc.dll+00494A90,DE8,0,F8,20";
+        string wepCharges = "mono-2.0-bdwgc.dll+00494A90,E50,28,A0,250,20";
+        string coinRecharge = ",38";
+        string walkSpeed = ",1A0";
+        string jumpForce = ",1A4";
+        string playerHealth = ",20C";
+        string nailgunAmmo = ",4C";
+        string railgunCharge = ",5C";
+        string boostRecharge = ",288";
+        string fallingBool = ",1B1";
 
         private void Main_Shown(object sender, EventArgs e)
         {
@@ -51,11 +79,11 @@ namespace ULTRAKILLTrainer
         {
             if (InfHealth.Checked)
             {
-                m.FreezeValue("mono-2.0-bdwgc.dll+00494A90,DE8,0,F8,20,20C", "int", "1000");
+                m.FreezeValue(playerBase + playerHealth, "int", "1000");
             }
             else
             {
-                m.UnfreezeValue("mono-2.0-bdwgc.dll+00494A90,DE8,0,F8,20,20C");
+                m.UnfreezeValue(playerBase + playerHealth);
             }
         }
 
@@ -63,11 +91,11 @@ namespace ULTRAKILLTrainer
         {
             if (InfDash.Checked)
             {
-                m.FreezeValue("mono-2.0-bdwgc.dll+00494A90,DE8,0,F8,20,288", "float", "300");
+                m.FreezeValue(playerBase + boostRecharge, "float", "300");
             }
             else
             {
-                m.UnfreezeValue("mono-2.0-bdwgc.dll+00494A90,DE8,0,F8,20,288");
+                m.UnfreezeValue(playerBase + boostRecharge);
             }
         }
 
@@ -75,11 +103,11 @@ namespace ULTRAKILLTrainer
         {
             if (InfRailgun.Checked)
             {
-                m.FreezeValue("UnityPlayer.dll+01815FA0,A90,180,D0,48,F0,0,5C", "float", "5");
+                m.FreezeValue(wepCharges + railgunCharge, "float", "5");
             }
             else
             {
-                m.UnfreezeValue("UnityPlayer.dll+01815FA0,A90,180,D0,48,F0,0,5C");
+                m.UnfreezeValue(wepCharges + railgunCharge);
             }
         }
 
@@ -87,11 +115,81 @@ namespace ULTRAKILLTrainer
         {
             if (InfNailgun.Checked)
             {
-                m.FreezeValue("UnityPlayer.dll+01815FA0,A90,180,D0,48,F0,0,4C", "float", "100");
+                m.FreezeValue(wepCharges + nailgunAmmo, "float", "100");
             }
             else
             {
-                m.UnfreezeValue("UnityPlayer.dll+01815FA0,A90,180,D0,48,F0,0,4C");
+                m.UnfreezeValue(wepCharges + nailgunAmmo);
+            }
+        }
+
+        private async void OneShot_CheckedChanged(object sender, EventArgs e)
+        {
+            errorCode = "404 PNTR";
+            if (OneShot.Checked)
+            {
+                byte[] newBytes =
+                {
+                    0xC7, 0x45, 0x30, 0x00, 0x00, 0x7A, 0x44
+                };
+                aobDamageScan = (await m.AoBScan("F3 0F 11 6D 30 49 8B 47", false, true)).FirstOrDefault();
+                if (aobDamageScan == 0)
+                {
+                    Debug.WriteLine("Scan Unsuccsesful.");
+                    errorForm = new Form1();
+                    errorForm.Show(errorCode);
+                } 
+                else
+                {
+                    Debug.WriteLine("Scan Succses! Addres found: " + aobDamageScan.ToString("X"));
+                    codeCaveDamage = m.CreateCodeCave(aobDamageScan.ToString("X"), newBytes, 5, 1000);
+                }
+            }
+            else
+            {
+                DeAllocRegion(codeCaveDamage, m.mProc.Handle);
+                Debug.WriteLine("Deallocated Region " + aobDamageScan.ToString("X"));
+                m.WriteMemory(aobDamageScan.ToString("X"), "bytes", "F3 0F 11 6D 30");
+                Debug.WriteLine("Wrote original assembly into the scan address.");
+            }
+        }
+
+        private void InfJump_CheckedChanged(object sender, EventArgs e)
+        {
+            if (InfJump.Checked)
+            {
+                m.FreezeValue(playerBase + fallingBool, "int", "0");
+            }
+            else
+            {
+                m.UnfreezeValue(playerBase + fallingBool);
+            }
+        }
+
+        private void walkSpeedBar_Scroll(object sender, EventArgs e)
+        {
+            m.WriteMemory(playerBase + walkSpeed, "float", walkSpeedBar.Value.ToString());
+        }
+
+        private void walkSpeedBar_ValueChanged(object sender, EventArgs e)
+        {
+            m.WriteMemory(playerBase + walkSpeed, "float", walkSpeedBar.Value.ToString());
+        }
+
+        private void jumpForceBar_ValueChanged(object sender, EventArgs e)
+        {
+            m.WriteMemory(playerBase + jumpForce, "float", jumpForceBar.Value.ToString());
+        }
+
+        private void InfCoins_CheckedChanged(object sender, EventArgs e)
+        {
+            if (InfCoins.Checked)
+            {
+                m.FreezeValue(wepCharges + coinRecharge, "float", "400");
+            }
+            else
+            {
+                m.UnfreezeValue(wepCharges + coinRecharge);
             }
         }
     }
