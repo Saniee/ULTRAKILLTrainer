@@ -138,6 +138,8 @@ namespace ULTRAKILLTrainer
                     Debug.WriteLine("Scan Unsuccsesful.");
                     errorForm = new Form1();
                     errorForm.Show(errorCode);
+                    OneShot.Enabled = false;
+                    OneShot.Checked = false;
                 } 
                 else
                 {
