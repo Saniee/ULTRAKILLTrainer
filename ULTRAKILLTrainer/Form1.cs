@@ -14,9 +14,10 @@ namespace ULTRAKILLTrainer
             Process.Start("explorer.exe", "https://github.com/Saniee/ULTRAKILLTrainer/issues/new");
         }
 
-        internal void Show(string errorCode)
+        internal void Show(string errorCode, string problemCode)
         {
             ErrorCodeLabel.Text = errorCode;
+            ProblemLabel.Text = problemCode;
             this.Show();
         }
 

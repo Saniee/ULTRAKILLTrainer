@@ -9,6 +9,7 @@ namespace ULTRAKILLTrainer
     {
         Mem m = new Mem();
         private string errorCode = "0";
+        private string problemCode = "";
 
         [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
         static extern bool VirtualFreeEx(IntPtr hProcess, UIntPtr lpAddress, UIntPtr dwSize, uint dwFreeType);
@@ -126,6 +127,7 @@ namespace ULTRAKILLTrainer
         private async void OneShot_CheckedChanged(object sender, EventArgs e)
         {
             errorCode = "404 PNTR";
+            problemCode = "One Shot Enemies Feature";
             if (OneShot.Checked)
             {
                 byte[] newBytes =
@@ -137,7 +139,7 @@ namespace ULTRAKILLTrainer
                 {
                     Debug.WriteLine("Scan Unsuccsesful.");
                     errorForm = new Form1();
-                    errorForm.Show(errorCode);
+                    errorForm.Show(errorCode, problemCode);
                     OneShot.Enabled = false;
                     OneShot.Checked = false;
                 } 

@@ -36,6 +36,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.GithubIssues = new System.Windows.Forms.LinkLabel();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.ProblemLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ErrorCodeLabel
@@ -58,9 +60,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(272, 119);
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button1.Location = new System.Drawing.Point(283, 5);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(50, 30);
+            this.button1.Size = new System.Drawing.Size(39, 25);
             this.button1.TabIndex = 2;
             this.button1.Text = "Back";
             this.button1.UseVisualStyleBackColor = true;
@@ -99,11 +102,29 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 95);
+            this.label4.Location = new System.Drawing.Point(12, 51);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(273, 21);
+            this.label4.Size = new System.Drawing.Size(238, 21);
             this.label4.TabIndex = 6;
-            this.label4.Text = "You can close this window to continue";
+            this.label4.Text = "You can press \"Back\" to continue.";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 110);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(106, 21);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Problem with:";
+            // 
+            // ProblemLabel
+            // 
+            this.ProblemLabel.AutoSize = true;
+            this.ProblemLabel.Location = new System.Drawing.Point(124, 110);
+            this.ProblemLabel.Name = "ProblemLabel";
+            this.ProblemLabel.Size = new System.Drawing.Size(80, 21);
+            this.ProblemLabel.TabIndex = 8;
+            this.ProblemLabel.Text = "PROBLEM";
             // 
             // Form1
             // 
@@ -111,6 +132,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(334, 161);
             this.ControlBox = false;
+            this.Controls.Add(this.ProblemLabel);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.GithubIssues);
             this.Controls.Add(this.label3);
@@ -138,5 +161,7 @@
         private Label label3;
         private LinkLabel GithubIssues;
         private Label label4;
+        private Label label5;
+        private Label ProblemLabel;
     }
 }
