@@ -1,3 +1,5 @@
+# This trainer is discountinued! I dont plan on updating it to the latest version of the game. If someone wants to follow up on the development you can hit me up on discord (Saniee#0007)
+
 Welcome to the github page for ULTRAKILL Trainer.
 
 You can get info here on how to use the Trainer (Its very easy)
