@@ -203,7 +203,7 @@ namespace ULTRAKILLTrainer
             // 
             this.RevolverCoinsStatus.AutoSize = true;
             this.RevolverCoinsStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RevolverCoinsStatus.Location = new System.Drawing.Point(581, 29);
+            this.RevolverCoinsStatus.Location = new System.Drawing.Point(546, 29);
             this.RevolverCoinsStatus.Name = "RevolverCoinsStatus";
             this.RevolverCoinsStatus.Size = new System.Drawing.Size(24, 26);
             this.RevolverCoinsStatus.TabIndex = 4;
@@ -213,7 +213,7 @@ namespace ULTRAKILLTrainer
             // 
             this.NailgunAmmoStatus.AutoSize = true;
             this.NailgunAmmoStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NailgunAmmoStatus.Location = new System.Drawing.Point(557, 55);
+            this.NailgunAmmoStatus.Location = new System.Drawing.Point(546, 55);
             this.NailgunAmmoStatus.Name = "NailgunAmmoStatus";
             this.NailgunAmmoStatus.Size = new System.Drawing.Size(48, 26);
             this.NailgunAmmoStatus.TabIndex = 5;
@@ -224,7 +224,7 @@ namespace ULTRAKILLTrainer
             this.ProcOpenLabel.AutoSize = true;
             this.ProcOpenLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ProcOpenLabel.ForeColor = System.Drawing.Color.Red;
-            this.ProcOpenLabel.Location = new System.Drawing.Point(166, 347);
+            this.ProcOpenLabel.Location = new System.Drawing.Point(153, 347);
             this.ProcOpenLabel.Name = "ProcOpenLabel";
             this.ProcOpenLabel.Size = new System.Drawing.Size(49, 26);
             this.ProcOpenLabel.TabIndex = 2;
