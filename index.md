@@ -1,5 +1,5 @@
 ### ULTRAKILL Trainer
-Updates and FAQ is here.
+Updates and FAQ
 
 ### Act 2 Update?
 It's planned, however all of the previous work finding thing's that do not crash the game on use when finishing the level, changing to sandbox... is tedious work, and it takes time to compile the list I had before (so it's consistent and usable). Right now, I have the basics down, health and weapon ammo editing-- Expect this to come out soon-ish. As time progresses new features/hacks will be added.
