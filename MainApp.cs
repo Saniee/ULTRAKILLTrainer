@@ -26,6 +26,10 @@ namespace ULTRAKILLTrainer
         string railgunChargeOffset = ",6C";
         string revolverCoinsOffset = ",48";
 
+        // string healthOffset = ",21C";
+        // string dashChargeOffset = ",288";
+        // string hardDamageOffset = ",220";
+
         private void MainApp_Load(object sender, EventArgs e)
         {
             bgWorker.RunWorkerAsync();
@@ -56,18 +60,21 @@ namespace ULTRAKILLTrainer
             RailgunChargeStatus.Text = Math.Floor(m.ReadFloat(WepBase + railgunChargeOffset) * 20).ToString() + "%"; 
             RevolverCoinsStatus.Text = Math.Floor(m.ReadFloat(WepBase + revolverCoinsOffset) / 100).ToString();
             NailgunAmmoStatus.Text = Math.Floor(m.ReadFloat(WepBase + nailgunAmmoOffset)).ToString();
+            // HealthStatusBar.Value = m.ReadInt(PlayerBase + healthOffset);
 
             if (devMode == true)
             {
                 setHealthBtn.Enabled = true;
                 freezeHealthBtn.Enabled = true;
                 infDashChargeCheck.Enabled = true;
+                NoHardDamageCheck.Enabled = true;
             }
             else
             {
                 setHealthBtn.Enabled = false;
                 freezeHealthBtn.Enabled = false;
                 infDashChargeCheck.Enabled = false;
+                NoHardDamageCheck.Enabled = false;
             }
         }
 

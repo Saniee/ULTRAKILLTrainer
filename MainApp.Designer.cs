@@ -54,6 +54,7 @@ namespace ULTRAKILLTrainer
             this.enableDevModeBtn = new System.Windows.Forms.Button();
             this.HealthStatusBar = new System.Windows.Forms.ProgressBar();
             this.DevModePassInput = new System.Windows.Forms.TextBox();
+            this.NoHardDamageCheck = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -73,6 +74,7 @@ namespace ULTRAKILLTrainer
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.NoHardDamageCheck);
             this.tabPage1.Controls.Add(this.HealthStatusBar);
             this.tabPage1.Controls.Add(this.infDashChargeCheck);
             this.tabPage1.Controls.Add(this.freezeHealthBtn);
@@ -325,6 +327,18 @@ namespace ULTRAKILLTrainer
             this.DevModePassInput.Size = new System.Drawing.Size(100, 20);
             this.DevModePassInput.TabIndex = 4;
             // 
+            // NoHardDamageCheck
+            // 
+            this.NoHardDamageCheck.AutoSize = true;
+            this.NoHardDamageCheck.Enabled = false;
+            this.NoHardDamageCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NoHardDamageCheck.Location = new System.Drawing.Point(6, 69);
+            this.NoHardDamageCheck.Name = "NoHardDamageCheck";
+            this.NoHardDamageCheck.Size = new System.Drawing.Size(201, 30);
+            this.NoHardDamageCheck.TabIndex = 6;
+            this.NoHardDamageCheck.Text = "No Hard Damage";
+            this.NoHardDamageCheck.UseVisualStyleBackColor = true;
+            // 
             // MainApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -378,6 +392,7 @@ namespace ULTRAKILLTrainer
         private System.Windows.Forms.Button enableDevModeBtn;
         private System.Windows.Forms.ProgressBar HealthStatusBar;
         private System.Windows.Forms.TextBox DevModePassInput;
+        private System.Windows.Forms.CheckBox NoHardDamageCheck;
     }
 }
 
