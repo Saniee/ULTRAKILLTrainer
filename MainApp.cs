@@ -16,29 +16,45 @@ namespace ULTRAKILLTrainer
 
         public Mem m = new Mem();
 
-        string WepBase = "UnityPlayer.dll+017AB300,0,48,88,8,90,28";
-        // string PlayerBase = "";
+        private string WepBase = "UnityPlayer.dll+017E1C30,0,10,88,8,58,28";
+        private string PlayerBase = "UnityPlayer.dll+01801D58,10,10,30,38,28,28";
+        private string StatBase = "UnityPlayer.dll+017E1C30,0,10,90,80,40,28";
 
-        bool gameOpen = false;
-        bool devMode = false;
+        private bool gameOpen = false;
+        private bool devMode = false;
+        private bool healthFrozen = false;
 
-        string nailgunAmmoOffset = ",5C";
-        string railgunChargeOffset = ",6C";
-        string revolverCoinsOffset = ",48";
+        private string nailgunAmmoOffset = ",60";
+        private string railgunChargeOffset = ",70";
+        private string revolverCoinsOffset = ",48";
 
-        // string healthOffset = ",21C";
-        // string dashChargeOffset = ",288";
-        // string hardDamageOffset = ",220";
+        private string stylePointsOffset = ",C4";
+        private string tookDmgStatOffset = ",E4";
+        private string noRestartsOffset = ",C8";
+
+        private string healthOffset = ",21C";
+        private string dashChargeOffset = ",28C";
+        private string hardDamageOffset = ",220";
+        private string playerActiveOffset = ",02B0";
 
         private void MainApp_Load(object sender, EventArgs e)
         {
             bgWorker.RunWorkerAsync();
+            bgPlayerActiveWorker.RunWorkerAsync();
         }
 
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             gameOpen = m.OpenProcess("ULTRAKILL");
 
+            Thread.Sleep(100);
+            bgWorker.ReportProgress(0);
+        }
+
+        private void bgPlayerActiveWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            int readInt = m.ReadInt(PlayerBase + playerActiveOffset);
+            
             Thread.Sleep(100);
             bgWorker.ReportProgress(0);
         }
@@ -60,7 +76,7 @@ namespace ULTRAKILLTrainer
             RailgunChargeStatus.Text = Math.Floor(m.ReadFloat(WepBase + railgunChargeOffset) * 20).ToString() + "%"; 
             RevolverCoinsStatus.Text = Math.Floor(m.ReadFloat(WepBase + revolverCoinsOffset) / 100).ToString();
             NailgunAmmoStatus.Text = Math.Floor(m.ReadFloat(WepBase + nailgunAmmoOffset)).ToString();
-            // HealthStatusBar.Value = m.ReadInt(PlayerBase + healthOffset);
+            playerActive.Text = m.ReadByte(PlayerBase + ",02B0").ToString();
 
             if (devMode == true)
             {
@@ -68,6 +84,9 @@ namespace ULTRAKILLTrainer
                 freezeHealthBtn.Enabled = true;
                 infDashChargeCheck.Enabled = true;
                 NoHardDamageCheck.Enabled = true;
+                setStylePointsBtn.Enabled = true;
+                setNoRestartsBtn.Enabled = true;
+                noDmgStatCheck.Enabled = true;
             }
             else
             {
@@ -75,12 +94,20 @@ namespace ULTRAKILLTrainer
                 freezeHealthBtn.Enabled = false;
                 infDashChargeCheck.Enabled = false;
                 NoHardDamageCheck.Enabled = false;
+                setStylePointsBtn.Enabled = false;
+                setNoRestartsBtn.Enabled = false;
+                noDmgStatCheck.Enabled = false;
             }
         }
 
         private void bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             bgWorker.RunWorkerAsync();
+        }
+
+        private void bgPlayerActiveWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            bgPlayerActiveWorker.RunWorkerAsync();
         }
 
         private void infRailgunChargeCheck_CheckedChanged(object sender, EventArgs e)
@@ -118,11 +145,85 @@ namespace ULTRAKILLTrainer
             }
         }
 
-        private void enableDevModeBtn_Click(object sender, EventArgs e)
+        private void enablePreReleaseFeaturesBtn_Click(object sender, EventArgs e)
         {
-            if (DevModePassInput.Text == "")
+            if (PreReleaseFeaturesPassInput.Text == "WarningExperimentalFeatures")
             {
                 devMode = !devMode;
+                MessageBox.Show("You can now work with Pre-Release Features.", "ULTRAKILL Trainer", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                PreReleaseFeaturesPassInput.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Wrong Password.", "ULTRAKILL Trainer", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void setHealthBtn_Click(object sender, EventArgs e)
+        {
+            m.WriteMemory(PlayerBase + healthOffset, "int", HealthInputBox.Text);
+        }
+
+        private void freezeHealthBtn_Click(object sender, EventArgs e)
+        {
+            string cHealth = m.ReadInt(PlayerBase + healthOffset).ToString();
+            healthFrozen = !healthFrozen;
+
+            if (healthFrozen)
+            {
+                m.FreezeValue(PlayerBase + healthOffset, "int", cHealth);
+                freezeHealthBtn.ForeColor = Color.Green;
+            } 
+            else
+            {
+                m.UnfreezeValue(PlayerBase + healthOffset);
+                freezeHealthBtn.ForeColor = Color.Black;
+            }
+        }
+
+        private void infDashChargeCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (infDashChargeCheck.Checked)
+            {
+                m.FreezeValue(PlayerBase + dashChargeOffset, "float", "300");
+            }
+            else
+            {
+                m.UnfreezeValue(PlayerBase + dashChargeOffset);
+            }
+        }
+
+        private void NoHardDamageCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (NoHardDamageCheck.Checked)
+            {
+                m.FreezeValue(PlayerBase + hardDamageOffset, "int", "0");
+            }
+            else
+            {
+                m.UnfreezeValue(PlayerBase + hardDamageOffset);
+            }
+        }
+
+        private void setStylePointsBtn_Click(object sender, EventArgs e)
+        {
+            m.WriteMemory(StatBase + stylePointsOffset, "int", StylePointInput.Text);
+        }
+
+        private void setNoRestartsBtn_Click(object sender, EventArgs e)
+        {
+            m.WriteMemory(StatBase + noRestartsOffset, "int", RestartsInput.Text);
+        }
+
+        private void noDmgStatCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (noDmgStatCheck.Checked)
+            {
+                m.FreezeValue(StatBase + tookDmgStatOffset, "byte", "0");
+            }
+            else
+            {
+                m.UnfreezeValue(StatBase + tookDmgStatOffset);
             }
         }
     }
