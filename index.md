@@ -2,7 +2,7 @@
 Updates and FAQ
 
 ### Most Recent Update
-~~This release brings support for the new update of the game, along with neat features like editing stats for the level, and the player tab now also works.~~ This update is no longer working with the latest version of the game. A fix is in the works.
+This release brings support for the new update of the game, along with neat features like editing stats for the level, and the player tab now also works.
 
 New Stuff/Reworked Stuff
 - Support for the new Game Update.
