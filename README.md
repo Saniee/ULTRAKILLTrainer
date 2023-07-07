@@ -1,7 +1,3 @@
-### Latest Downloads
-![GithubRelease Latest ALL](https://img.shields.io/github/downloads/Saniee/ULTRAKILLTrainer/latest/total?style=plastic)
+# Major Rewrite.
 
-### All releases Downloads
-![GithugRelease All](https://img.shields.io/github/downloads/Saniee/ULTRAKILLTrainer/total)
-
-## Do note, every cheat requires Admin perms to edit memory. This one is no Exception!
+<b>The next Iteration of this Trainer.</b> <br><br> I will try to pack as much features as possible into this. <br> Don't expect much from the start, I will begin with basic health/ammo editing. <br> <b>Everything more advanced will be added after time.</b>
