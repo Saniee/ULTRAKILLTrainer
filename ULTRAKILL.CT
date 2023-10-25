@@ -1,0 +1,1163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>63</ID>
+      <Description>"Weapon Cheats"</Description>
+      <Options moAlwaysHideChildren="1" moManualExpandCollapse="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1" moAllowManualCollapseAndExpand="1"/>
+      <Color>00FFFF</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>51</ID>
+          <Description>"Infinite Railgun Charge"</Description>
+          <Color>00FFFF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : ULTRAKILL.exe
+  Version: 
+  Date   : 2023-10-25
+  Author : asams
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscan(RailgunCharge,F3 0F 11 6E 70 F3 0F 10 46 70) // should be unique
+alloc(newmem,$1000,RailgunCharge)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  // float, xmm5 register
+  mov [rsi+70],(float)5
+  jmp return
+
+RailgunCharge:
+  jmp newmem
+return:
+registersymbol(RailgunCharge)
+
+[DISABLE]
+
+RailgunCharge:
+  db F3 0F 11 6E 70
+
+unregistersymbol(RailgunCharge)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: WeaponCharges:Charge+433
+
+WeaponCharges:Charge+405: F3 0F 5A DB                    - cvtss2sd xmm3,xmm3
+WeaponCharges:Charge+409: F2 0F 59 D3                    - mulsd xmm2,xmm3
+WeaponCharges:Charge+40d: F2 0F 5A D2                    - cvtsd2ss xmm2,xmm2
+WeaponCharges:Charge+411: F2 0F 5A C9                    - cvtsd2ss xmm1,xmm1
+WeaponCharges:Charge+415: F2 0F 5A C0                    - cvtsd2ss xmm0,xmm0
+WeaponCharges:Charge+419: 48 8D 64 24 00                 - lea rsp,[rsp+00]
+WeaponCharges:Charge+41e: 49 BB 20 59 A2 14 41 02 00 00  - mov r11,UnityEngine.Mathf:MoveTowards
+WeaponCharges:Charge+428: 41 FF D3                       - call r11
+WeaponCharges:Charge+42b: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+WeaponCharges:Charge+42f: F2 0F 5A E8                    - cvtsd2ss xmm5,xmm0
+// ---------- INJECTING HERE ----------
+WeaponCharges:Charge+433: F3 0F 11 6E 70                 - movss [rsi+70],xmm5
+// ---------- DONE INJECTING  ----------
+WeaponCharges:Charge+438: F3 0F 10 46 70                 - movss xmm0,[rsi+70]
+WeaponCharges:Charge+43d: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+WeaponCharges:Charge+441: F3 0F 10 0D E7 07 00 00        - movss xmm1,[WeaponCharges:Charge+c30]
+WeaponCharges:Charge+449: F3 0F 5A C9                    - cvtss2sd xmm1,xmm1
+WeaponCharges:Charge+44d: 66 0F 2F C8                    - comisd xmm1,xmm0
+WeaponCharges:Charge+451: 0F 8A 4C 00 00 00              - jp WeaponCharges:Charge+4a3
+WeaponCharges:Charge+457: 0F 87 46 00 00 00              - ja WeaponCharges:Charge+4a3
+WeaponCharges:Charge+45d: 48 8B 4E 28                    - mov rcx,[rsi+28]
+WeaponCharges:Charge+461: 48 8D 64 24 00                 - lea rsp,[rsp+00]
+WeaponCharges:Charge+466: 49 BB 30 8E 37 59 41 02 00 00  - mov r11,UnityEngine.Object:op_Implicit
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>55</ID>
+          <Description>"Infinite Revolver Charges"</Description>
+          <Options moAlwaysHideChildren="1" moManualExpandCollapse="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+          <Color>00FFFF</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>43</ID>
+              <Description>"Infinite Piercer Revolver Charge"</Description>
+              <Color>00FFFF</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : ULTRAKILL.exe
+  Version: 
+  Date   : 2023-10-25
+  Author : asams
+
+  Rev0 = Battery (Piercer Revolver)
+}
+
+[ENABLE]
+
+aobscan(Rev0Charge,F3 0F 11 AE AC 01 00 00 E9 1E) // should be unique
+alloc(newmem,$1000,Rev0Charge)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  // float, xmm5 register
+  mov [rsi+000001AC],(float)100
+  jmp return
+
+Rev0Charge:
+  jmp newmem
+  nop 3
+return:
+registersymbol(Rev0Charge)
+
+[DISABLE]
+
+Rev0Charge:
+  db F3 0F 11 AE AC 01 00 00
+
+unregistersymbol(Rev0Charge)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Revolver:Update+260
+
+Revolver:Update+230: 41 FF D3                 - call r11
+Revolver:Update+233: F3 0F 5A D0              - cvtss2sd xmm2,xmm0
+Revolver:Update+237: F2 0F 10 85 B8 FE FF FF  - movsd xmm0,[rbp-00000148]
+Revolver:Update+23f: F2 0F 10 8D B0 FE FF FF  - movsd xmm1,[rbp-00000150]
+Revolver:Update+247: F2 0F 59 CA              - mulsd xmm1,xmm2
+Revolver:Update+24b: F3 0F 10 55 E4           - movss xmm2,[rbp-1C]
+Revolver:Update+250: F3 0F 5A D2              - cvtss2sd xmm2,xmm2
+Revolver:Update+254: F2 0F 59 CA              - mulsd xmm1,xmm2
+Revolver:Update+258: F2 0F 58 C1              - addsd xmm0,xmm1
+Revolver:Update+25c: F2 0F 5A E8              - cvtsd2ss xmm5,xmm0
+// ---------- INJECTING HERE ----------
+Revolver:Update+260: F3 0F 11 AE AC 01 00 00  - movss [rsi+000001AC],xmm5
+// ---------- DONE INJECTING  ----------
+Revolver:Update+268: E9 1E 01 00 00           - jmp Revolver:Update+38b
+Revolver:Update+26d: F3 0F 10 05 7B 1B 00 00  - movss xmm0,[Revolver:Update+1df0]
+Revolver:Update+275: F3 0F 5A C0              - cvtss2sd xmm0,xmm0
+Revolver:Update+279: F2 0F 5A E8              - cvtsd2ss xmm5,xmm0
+Revolver:Update+27d: F3 0F 11 AE AC 01 00 00  - movss [rsi+000001AC],xmm5
+Revolver:Update+285: C6 86 A6 01 00 00 01     - mov byte ptr [rsi+000001A6],01
+Revolver:Update+28c: 48 8B 86 D8 00 00 00     - mov rax,[rsi+000000D8]
+Revolver:Update+293: 48 8B 96 E0 00 00 00     - mov rdx,[rsi+000000E0]
+Revolver:Update+29a: 48 8B C8                 - mov rcx,rax
+Revolver:Update+29d: 83 38 00                 - cmp dword ptr [rax],00
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>49</ID>
+              <Description>"Infinite Marksman Revolver Charge"</Description>
+              <Color>00FFFF</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : ULTRAKILL.exe
+  Version: 
+  Date   : 2023-10-25
+  Author : asams
+
+  Rev1 = Coins (Marksman Revolver)
+}
+
+[ENABLE]
+
+aobscan(Rev1Charge,F3 0F 11 6E 48 F3 0F 10 46 4C) // should be unique
+alloc(newmem,$1000,Rev1Charge)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  // float, xmm5 register
+  mov [rsi+48],(float)400
+  jmp return
+
+Rev1Charge:
+  jmp newmem
+return:
+registersymbol(Rev1Charge)
+
+[DISABLE]
+
+Rev1Charge:
+  db F3 0F 11 6E 48
+
+unregistersymbol(Rev1Charge)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: WeaponCharges:Charge+17b
+
+WeaponCharges:Charge+14d: F3 0F 5A DB                    - cvtss2sd xmm3,xmm3
+WeaponCharges:Charge+151: F2 0F 59 D3                    - mulsd xmm2,xmm3
+WeaponCharges:Charge+155: F2 0F 5A D2                    - cvtsd2ss xmm2,xmm2
+WeaponCharges:Charge+159: F2 0F 5A C9                    - cvtsd2ss xmm1,xmm1
+WeaponCharges:Charge+15d: F2 0F 5A C0                    - cvtsd2ss xmm0,xmm0
+WeaponCharges:Charge+161: 48 8D 64 24 00                 - lea rsp,[rsp+00]
+WeaponCharges:Charge+166: 49 BB 20 59 A2 14 41 02 00 00  - mov r11,UnityEngine.Mathf:MoveTowards
+WeaponCharges:Charge+170: 41 FF D3                       - call r11
+WeaponCharges:Charge+173: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+WeaponCharges:Charge+177: F2 0F 5A E8                    - cvtsd2ss xmm5,xmm0
+// ---------- INJECTING HERE ----------
+WeaponCharges:Charge+17b: F3 0F 11 6E 48                 - movss [rsi+48],xmm5
+// ---------- DONE INJECTING  ----------
+WeaponCharges:Charge+180: F3 0F 10 46 4C                 - movss xmm0,[rsi+4C]
+WeaponCharges:Charge+185: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+WeaponCharges:Charge+189: F3 0F 10 0D 8F 0B 00 00        - movss xmm1,[WeaponCharges:Charge+d20]
+WeaponCharges:Charge+191: F3 0F 5A C9                    - cvtss2sd xmm1,xmm1
+WeaponCharges:Charge+195: 66 0F 2F C8                    - comisd xmm1,xmm0
+WeaponCharges:Charge+199: 0F 86 C1 00 00 00              - jbe WeaponCharges:Charge+260
+WeaponCharges:Charge+19f: 0F B6 46 50                    - movzx eax,byte ptr [rsi+50]
+WeaponCharges:Charge+1a3: 85 C0                          - test eax,eax
+WeaponCharges:Charge+1a5: 0F 84 5A 00 00 00              - je WeaponCharges:Charge+205
+WeaponCharges:Charge+1ab: F3 0F 10 46 4C                 - movss xmm0,[rsi+4C]
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>46</ID>
+              <Description>"Infinite Sharpshooter Revolver Charge"</Description>
+              <Color>00FFFF</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript Async="1">{ Game   : ULTRAKILL.exe
+  Version: 
+  Date   : 2023-10-25
+  Author : asams
+
+  Rev2 = Bounces (Sharpshooter Revolver)
+}
+
+[ENABLE]
+
+aobscan(Rev2Charge,F3 0F 11 6E 4C F3 0F 10 46 54) // should be unique
+alloc(newmem,$1000,Rev2Charge)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  // float, xmm5 register
+  mov [rsi+4C],(float)400
+  jmp return
+
+Rev2Charge:
+  jmp newmem
+return:
+registersymbol(Rev2Charge)
+
+[DISABLE]
+
+Rev2Charge:
+  db F3 0F 11 6E 4C
+
+unregistersymbol(Rev2Charge)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: WeaponCharges:Charge+25b
+
+WeaponCharges:Charge+22b: F3 0F 5A DB                    - cvtss2sd xmm3,xmm3
+WeaponCharges:Charge+22f: F2 0F 59 D3                    - mulsd xmm2,xmm3
+WeaponCharges:Charge+233: F2 0F 5A D2                    - cvtsd2ss xmm2,xmm2
+WeaponCharges:Charge+237: F2 0F 5A C9                    - cvtsd2ss xmm1,xmm1
+WeaponCharges:Charge+23b: F2 0F 5A C0                    - cvtsd2ss xmm0,xmm0
+WeaponCharges:Charge+23f: 48 8D AD 00 00 00 00           - lea rbp,[rbp+00000000]
+WeaponCharges:Charge+246: 49 BB 20 59 A2 14 41 02 00 00  - mov r11,UnityEngine.Mathf:MoveTowards
+WeaponCharges:Charge+250: 41 FF D3                       - call r11
+WeaponCharges:Charge+253: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+WeaponCharges:Charge+257: F2 0F 5A E8                    - cvtsd2ss xmm5,xmm0
+// ---------- INJECTING HERE ----------
+WeaponCharges:Charge+25b: F3 0F 11 6E 4C                 - movss [rsi+4C],xmm5
+// ---------- DONE INJECTING  ----------
+WeaponCharges:Charge+260: F3 0F 10 46 54                 - movss xmm0,[rsi+54]
+WeaponCharges:Charge+265: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+WeaponCharges:Charge+269: F3 0F 10 0D 5F 0A 00 00        - movss xmm1,[WeaponCharges:Charge+cd0]
+WeaponCharges:Charge+271: F3 0F 5A C9                    - cvtss2sd xmm1,xmm1
+WeaponCharges:Charge+275: 66 0F 2F C8                    - comisd xmm1,xmm0
+WeaponCharges:Charge+279: 0F 86 59 00 00 00              - jbe WeaponCharges:Charge+2d8
+WeaponCharges:Charge+27f: F3 0F 10 46 54                 - movss xmm0,[rsi+54]
+WeaponCharges:Charge+284: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+WeaponCharges:Charge+288: F3 0F 10 0D 30 0A 00 00        - movss xmm1,[WeaponCharges:Charge+cc0]
+WeaponCharges:Charge+290: F3 0F 5A C9                    - cvtss2sd xmm1,xmm1
+}
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>62</ID>
+          <Description>"Nailgun Cheats"</Description>
+          <Options moAlwaysHideChildren="1" moManualExpandCollapse="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1" moAllowManualCollapseAndExpand="1"/>
+          <Color>00FFFF</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>54</ID>
+              <Description>"Infinite Nailgun Heatsink"</Description>
+              <Color>00FFFF</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : ULTRAKILL.exe
+  Version: 
+  Date   : 2023-10-25
+  Author : asams
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscan(NailgunHeatsink,F3 0F 11 AE 64 01 00 00 E9) // should be unique
+alloc(newmem,$1000,NailgunHeatsink)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  // float, xmm5 registers
+  mov [rsi+00000164],(float)2
+  jmp return
+
+NailgunHeatsink:
+  jmp newmem
+  nop 3
+return:
+registersymbol(NailgunHeatsink)
+
+[DISABLE]
+
+NailgunHeatsink:
+  db F3 0F 11 AE 64 01 00 00
+
+unregistersymbol(NailgunHeatsink)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Nailgun:Update+15f3
+
+Nailgun:Update+15c7: F3 0F 5A DB                    - cvtss2sd xmm3,xmm3
+Nailgun:Update+15cb: F2 0F 59 D3                    - mulsd xmm2,xmm3
+Nailgun:Update+15cf: F2 0F 5A D2                    - cvtsd2ss xmm2,xmm2
+Nailgun:Update+15d3: F2 0F 5A C9                    - cvtsd2ss xmm1,xmm1
+Nailgun:Update+15d7: F2 0F 5A C0                    - cvtsd2ss xmm0,xmm0
+Nailgun:Update+15db: 66 66 90                       - nop 3
+Nailgun:Update+15de: 49 BB 20 59 A2 14 41 02 00 00  - mov r11,UnityEngine.Mathf:MoveTowards
+Nailgun:Update+15e8: 41 FF D3                       - call r11
+Nailgun:Update+15eb: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+Nailgun:Update+15ef: F2 0F 5A E8                    - cvtsd2ss xmm5,xmm0
+// ---------- INJECTING HERE ----------
+Nailgun:Update+15f3: F3 0F 11 AE 64 01 00 00        - movss [rsi+00000164],xmm5
+// ---------- DONE INJECTING  ----------
+Nailgun:Update+15fb: E9 BB 00 00 00                 - jmp Nailgun:Update+16bb
+Nailgun:Update+1600: 0F B6 86 0C 01 00 00           - movzx eax,byte ptr [rsi+0000010C]
+Nailgun:Update+1607: 85 C0                          - test eax,eax
+Nailgun:Update+1609: 0F 84 AC 00 00 00              - je Nailgun:Update+16bb
+Nailgun:Update+160f: F3 0F 10 86 64 01 00 00        - movss xmm0,[rsi+00000164]
+Nailgun:Update+1617: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+Nailgun:Update+161b: F3 0F 10 0D AD 01 00 00        - movss xmm1,[Nailgun:Update+17d0]
+Nailgun:Update+1623: F3 0F 5A C9                    - cvtss2sd xmm1,xmm1
+Nailgun:Update+1627: 66 0F 2F C8                    - comisd xmm1,xmm0
+Nailgun:Update+162b: 0F 86 8A 00 00 00              - jbe Nailgun:Update+16bb
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>58</ID>
+              <Description>"Infinite Nailgun Ammo"</Description>
+              <Color>00FFFF</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : ULTRAKILL.exe
+  Version: 
+  Date   : 2023-10-25
+  Author : asams
+
+  Nailgun Ammo
+}
+
+[ENABLE]
+
+aobscan(NailgunAmmo,F3 0F 11 68 60 48 8B 86 90) // should be unique
+alloc(newmem,$1000,NailgunAmmo)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  // float, register xmm5
+  mov [rax+60],(float)100
+  jmp return
+
+NailgunAmmo:
+  jmp newmem
+return:
+registersymbol(NailgunAmmo)
+
+[DISABLE]
+
+NailgunAmmo:
+  db F3 0F 11 68 60
+
+unregistersymbol(NailgunAmmo)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Nailgun:Shoot+168
+
+Nailgun:Shoot+139: F2 0F 5A E8                    - cvtsd2ss xmm5,xmm0
+Nailgun:Shoot+13d: F3 0F 11 68 64                 - movss [rax+64],xmm5
+Nailgun:Shoot+142: EB 29                          - jmp Nailgun:Shoot+16d
+Nailgun:Shoot+144: 48 8B 86 E0 00 00 00           - mov rax,[rsi+000000E0]
+Nailgun:Shoot+14b: F3 0F 10 40 60                 - movss xmm0,[rax+60]
+Nailgun:Shoot+150: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+Nailgun:Shoot+154: F3 0F 10 0D E4 16 00 00        - movss xmm1,[Nailgun:Shoot+1840]
+Nailgun:Shoot+15c: F3 0F 5A C9                    - cvtss2sd xmm1,xmm1
+Nailgun:Shoot+160: F2 0F 5C C1                    - subsd xmm0,xmm1
+Nailgun:Shoot+164: F2 0F 5A E8                    - cvtsd2ss xmm5,xmm0
+// ---------- INJECTING HERE ----------
+Nailgun:Shoot+168: F3 0F 11 68 60                 - movss [rax+60],xmm5
+// ---------- DONE INJECTING  ----------
+Nailgun:Shoot+16d: 48 8B 86 90 00 00 00           - mov rax,[rsi+00000090]
+Nailgun:Shoot+174: 48 8B C8                       - mov rcx,rax
+Nailgun:Shoot+177: 48 BA F0 46 2B 28 0E 02 00 00  - mov rdx,0000020E282B46F0
+Nailgun:Shoot+181: 83 38 00                       - cmp dword ptr [rax],00
+Nailgun:Shoot+184: 66 90                          - nop 2
+Nailgun:Shoot+186: 49 BB 30 1C AF 29 0E 02 00 00  - mov r11,UnityEngine.Animator:SetTrigger
+Nailgun:Shoot+190: 41 FF D3                       - call r11
+Nailgun:Shoot+193: 48 63 86 14 01 00 00           - movsxd  rax,dword ptr [rsi+00000114]
+Nailgun:Shoot+19a: FF C0                          - inc eax
+Nailgun:Shoot+19c: 89 86 14 01 00 00              - mov [rsi+00000114],eax
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>61</ID>
+              <Description>"Infinite Nailgun Nails (Magnets)"</Description>
+              <Color>00FFFF</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : ULTRAKILL.exe
+  Version: 
+  Date   : 2023-10-25
+  Author : asams
+
+  Nailgun Magnets
+}
+
+[ENABLE]
+
+aobscan(NailgunMagnets,F3 0F 11 68 6C 49) // should be unique
+alloc(newmem,$1000,NailgunMagnets)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  // float, xmm5 register
+  mov [rax+6C],(float)3
+  jmp return
+
+NailgunMagnets:
+  jmp newmem
+return:
+registersymbol(NailgunMagnets)
+
+[DISABLE]
+
+NailgunMagnets:
+  db F3 0F 11 68 6C
+
+unregistersymbol(NailgunMagnets)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Nailgun:ShootMagnet+4d7
+
+Nailgun:ShootMagnet+4a3: 66 66 90                       - nop 3
+Nailgun:ShootMagnet+4a6: 49 BB 70 BA AE 26 0E 02 00 00  - mov r11,System.Collections.Generic.List`1[T_REF]:Add
+Nailgun:ShootMagnet+4b0: 41 FF D3                       - call r11
+Nailgun:ShootMagnet+4b3: 48 8B 86 E0 00 00 00           - mov rax,[rsi+000000E0]
+Nailgun:ShootMagnet+4ba: F3 0F 10 40 6C                 - movss xmm0,[rax+6C]
+Nailgun:ShootMagnet+4bf: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+Nailgun:ShootMagnet+4c3: F3 0F 10 0D 65 00 00 00        - movss xmm1,[Nailgun:ShootMagnet+530]
+Nailgun:ShootMagnet+4cb: F3 0F 5A C9                    - cvtss2sd xmm1,xmm1
+Nailgun:ShootMagnet+4cf: F2 0F 5C C1                    - subsd xmm0,xmm1
+Nailgun:ShootMagnet+4d3: F2 0F 5A E8                    - cvtsd2ss xmm5,xmm0
+// ---------- INJECTING HERE ----------
+Nailgun:ShootMagnet+4d7: F3 0F 11 68 6C                 - movss [rax+6C],xmm5
+// ---------- DONE INJECTING  ----------
+Nailgun:ShootMagnet+4dc: 49 BA 98 F0 5E FF 0F 02 00 00  - mov r10,0000020FFF5EF098
+Nailgun:ShootMagnet+4e6: 49 BB E0 CE C9 26 0E 02 00 00  - mov r11,MonoSingleton`1[T_REF]:get_Instance
+Nailgun:ShootMagnet+4f0: 41 FF D3                       - call r11
+Nailgun:ShootMagnet+4f3: 48 8B C8                       - mov rcx,rax
+Nailgun:ShootMagnet+4f6: 48 BA C0 68 32 28 0E 02 00 00  - mov rdx,0000020E283268C0
+Nailgun:ShootMagnet+500: 83 38 00                       - cmp dword ptr [rax],00
+Nailgun:ShootMagnet+503: 66 66 90                       - nop 3
+Nailgun:ShootMagnet+506: 49 BB A0 71 AE 29 0E 02 00 00  - mov r11,RumbleManager:SetVibration
+Nailgun:ShootMagnet+510: 41 FF D3                       - call r11
+Nailgun:ShootMagnet+513: 48 8B 75 E8                    - mov rsi,[rbp-18]
+}
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>68</ID>
+      <Description>"Player Cheats"</Description>
+      <Options moAlwaysHideChildren="1" moManualExpandCollapse="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1" moAllowManualCollapseAndExpand="1"/>
+      <Color>00FF00</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>64</ID>
+          <Description>"Player God Mode"</Description>
+          <Color>00FF00</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : ULTRAKILL.exe
+  Version: 
+  Date   : 2023-10-25
+  Author : asams
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscan(PlayerHealth,41 89 85 1C 02 00 00 EB) // should be unique
+alloc(newmem,$1000,PlayerHealth)
+
+label(code)
+label(return)
+
+newmem:
+  mov eax,(int)100
+
+code:
+  mov [r13+0000021C],eax
+  jmp return
+
+PlayerHealth:
+  jmp newmem
+  nop 2
+return:
+registersymbol(PlayerHealth)
+
+[DISABLE]
+
+PlayerHealth:
+  db 41 89 85 1C 02 00 00
+
+unregistersymbol(PlayerHealth)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: NewMovement:GetHurt+257
+
+NewMovement:GetHurt+228: 48 8D 64 24 00                    - lea rsp,[rsp+00]
+NewMovement:GetHurt+22d: 90                                - nop 
+NewMovement:GetHurt+22e: 49 BB 50 7D C5 2B 0E 02 00 00     - mov r11,UnityEngine.AudioSource:PlayOneShot
+NewMovement:GetHurt+238: 41 FF D3                          - call r11
+NewMovement:GetHurt+23b: 49 63 85 1C 02 00 00              - movsxd  rax,dword ptr [r13+0000021C]
+NewMovement:GetHurt+242: 41 2B C6                          - sub eax,r14d
+NewMovement:GetHurt+245: 85 C0                             - test eax,eax
+NewMovement:GetHurt+247: 0F 8E 13 00 00 00                 - jng NewMovement:GetHurt+260
+NewMovement:GetHurt+24d: 49 63 85 1C 02 00 00              - movsxd  rax,dword ptr [r13+0000021C]
+NewMovement:GetHurt+254: 41 2B C6                          - sub eax,r14d
+// ---------- INJECTING HERE ----------
+NewMovement:GetHurt+257: 41 89 85 1C 02 00 00              - mov [r13+0000021C],eax
+// ---------- DONE INJECTING  ----------
+NewMovement:GetHurt+25e: EB 0B                             - jmp NewMovement:GetHurt+26b
+NewMovement:GetHurt+260: 41 C7 85 1C 02 00 00 00 00 00 00  - mov [r13+0000021C],00000000
+NewMovement:GetHurt+26b: 45 85 FF                          - test r15d,r15d
+NewMovement:GetHurt+26e: 0F 84 FF 01 00 00                 - je NewMovement:GetHurt+473
+NewMovement:GetHurt+274: F3 0F 10 45 C8                    - movss xmm0,[rbp-38]
+NewMovement:GetHurt+279: F3 0F 5A C0                       - cvtss2sd xmm0,xmm0
+NewMovement:GetHurt+27d: 66 0F 57 C9                       - xorpd xmm1,xmm1
+NewMovement:GetHurt+281: 66 0F 2F C8                       - comisd xmm1,xmm0
+NewMovement:GetHurt+285: 7A 06                             - jp NewMovement:GetHurt+28d
+NewMovement:GetHurt+287: 0F 84 E6 01 00 00                 - je NewMovement:GetHurt+473
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>65</ID>
+          <Description>"Infinite Dash"</Description>
+          <Color>00FF00</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : ULTRAKILL.exe
+  Version: 
+  Date   : 2023-10-25
+  Author : asams
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscan(PlayerDash,F3 0F 11 AE 8C 02 00 00 48 8D 86 90) // should be unique
+alloc(newmem,$1000,PlayerDash)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  // float, xmm5 register
+  mov [rsi+0000028C],(float)300
+  jmp return
+
+PlayerDash:
+  jmp newmem
+  nop 3
+return:
+registersymbol(PlayerDash)
+
+[DISABLE]
+
+PlayerDash:
+  db F3 0F 11 AE 8C 02 00 00
+
+unregistersymbol(PlayerDash)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: NewMovement:Update+6deb
+
+NewMovement:Update+6dbb: F3 0F 5A DB                    - cvtss2sd xmm3,xmm3
+NewMovement:Update+6dbf: F2 0F 59 D3                    - mulsd xmm2,xmm3
+NewMovement:Update+6dc3: F2 0F 5A D2                    - cvtsd2ss xmm2,xmm2
+NewMovement:Update+6dc7: F2 0F 5A C9                    - cvtsd2ss xmm1,xmm1
+NewMovement:Update+6dcb: F2 0F 5A C0                    - cvtsd2ss xmm0,xmm0
+NewMovement:Update+6dcf: 48 8D AD 00 00 00 00           - lea rbp,[rbp+00000000]
+NewMovement:Update+6dd6: 49 BB 10 46 ED 2B 0E 02 00 00  - mov r11,UnityEngine.Mathf:MoveTowards
+NewMovement:Update+6de0: 41 FF D3                       - call r11
+NewMovement:Update+6de3: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+NewMovement:Update+6de7: F2 0F 5A E8                    - cvtsd2ss xmm5,xmm0
+// ---------- INJECTING HERE ----------
+NewMovement:Update+6deb: F3 0F 11 AE 8C 02 00 00        - movss [rsi+0000028C],xmm5
+// ---------- DONE INJECTING  ----------
+NewMovement:Update+6df3: 48 8D 86 90 02 00 00           - lea rax,[rsi+00000290]
+NewMovement:Update+6dfa: 48 63 08                       - movsxd  rcx,dword ptr [rax]
+NewMovement:Update+6dfd: 89 8D 30 F8 FF FF              - mov [rbp-000007D0],ecx
+NewMovement:Update+6e03: 48 63 48 04                    - movsxd  rcx,dword ptr [rax+04]
+NewMovement:Update+6e07: 89 8D 34 F8 FF FF              - mov [rbp-000007CC],ecx
+NewMovement:Update+6e0d: 48 63 40 08                    - movsxd  rax,dword ptr [rax+08]
+NewMovement:Update+6e11: 89 85 38 F8 FF FF              - mov [rbp-000007C8],eax
+NewMovement:Update+6e17: 48 8B 86 D0 00 00 00           - mov rax,[rsi+000000D0]
+NewMovement:Update+6e1e: 48 8B C8                       - mov rcx,rax
+NewMovement:Update+6e21: 83 38 00                       - cmp dword ptr [rax],00
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>66</ID>
+          <Description>"No Anti Health"</Description>
+          <Options moAlwaysHideChildren="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+          <Color>00FF00</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : ULTRAKILL.exe
+  Version: 
+  Date   : 2023-10-25
+  Author : asams
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscan(PlayerAntiHealth,F3 41 0F 11 AD 20 02 00 00 EB) // should be unique
+alloc(newmem,$1000,PlayerAntiHealth)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  // float, xmm5 register
+  mov [r13+00000220],(float)0
+  jmp return
+
+PlayerAntiHealth:
+  jmp newmem
+  nop 4
+return:
+registersymbol(PlayerAntiHealth)
+
+[DISABLE]
+
+PlayerAntiHealth:
+  db F3 41 0F 11 AD 20 02 00 00
+
+unregistersymbol(PlayerAntiHealth)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: NewMovement:GetHurt+363
+
+NewMovement:GetHurt+336: 76 36                       - jna NewMovement:GetHurt+36e
+NewMovement:GetHurt+338: F3 41 0F 10 85 20 02 00 00  - movss xmm0,[r13+00000220]
+NewMovement:GetHurt+341: F3 0F 5A C0                 - cvtss2sd xmm0,xmm0
+NewMovement:GetHurt+345: F3 41 0F 2A CE              - cvtsi2ss xmm1,r14d
+NewMovement:GetHurt+34a: F3 0F 5A C9                 - cvtss2sd xmm1,xmm1
+NewMovement:GetHurt+34e: F3 0F 10 55 D4              - movss xmm2,[rbp-2C]
+NewMovement:GetHurt+353: F3 0F 5A D2                 - cvtss2sd xmm2,xmm2
+NewMovement:GetHurt+357: F2 0F 59 CA                 - mulsd xmm1,xmm2
+NewMovement:GetHurt+35b: F2 0F 58 C1                 - addsd xmm0,xmm1
+NewMovement:GetHurt+35f: F2 0F 5A E8                 - cvtsd2ss xmm5,xmm0
+// ---------- INJECTING HERE ----------
+NewMovement:GetHurt+363: F3 41 0F 11 AD 20 02 00 00  - movss [r13+00000220],xmm5
+// ---------- DONE INJECTING  ----------
+NewMovement:GetHurt+36c: EB 19                       - jmp NewMovement:GetHurt+387
+NewMovement:GetHurt+36e: F3 0F 10 05 AA 06 00 00     - movss xmm0,[NewMovement:GetHurt+a20]
+NewMovement:GetHurt+376: F3 0F 5A C0                 - cvtss2sd xmm0,xmm0
+NewMovement:GetHurt+37a: F2 0F 5A E8                 - cvtsd2ss xmm5,xmm0
+NewMovement:GetHurt+37e: F3 41 0F 11 AD 20 02 00 00  - movss [r13+00000220],xmm5
+NewMovement:GetHurt+387: F3 41 0F 10 85 24 02 00 00  - movss xmm0,[r13+00000224]
+NewMovement:GetHurt+390: F3 0F 5A C0                 - cvtss2sd xmm0,xmm0
+NewMovement:GetHurt+394: 66 0F 57 C9                 - xorpd xmm1,xmm1
+NewMovement:GetHurt+398: 66 0F 2F C8                 - comisd xmm1,xmm0
+NewMovement:GetHurt+39c: 75 2E                       - jne NewMovement:GetHurt+3cc
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>67</ID>
+              <Description>"SafeGuard"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : ULTRAKILL.exe
+  Version: 
+  Date   : 2023-10-25
+  Author : asams
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+
+aobscan(PlayerAntiHealthSafeGuard,F3 0F 11 AE 20 02 00 00 48) // should be unique
+alloc(newmem,$1000,PlayerAntiHealthSafeGuard)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  // float, xmm5 register
+  mov [rsi+00000220],(float)0
+  jmp return
+
+PlayerAntiHealthSafeGuard:
+  jmp newmem
+  nop 3
+return:
+registersymbol(PlayerAntiHealthSafeGuard)
+
+[DISABLE]
+
+PlayerAntiHealthSafeGuard:
+  db F3 0F 11 AE 20 02 00 00
+
+unregistersymbol(PlayerAntiHealthSafeGuard)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: NewMovement:Update+78ab
+
+NewMovement:Update+787f: F3 0F 5A DB                    - cvtss2sd xmm3,xmm3
+NewMovement:Update+7883: F2 0F 59 D3                    - mulsd xmm2,xmm3
+NewMovement:Update+7887: F2 0F 5A D2                    - cvtsd2ss xmm2,xmm2
+NewMovement:Update+788b: F2 0F 5A C9                    - cvtsd2ss xmm1,xmm1
+NewMovement:Update+788f: F2 0F 5A C0                    - cvtsd2ss xmm0,xmm0
+NewMovement:Update+7893: 66 66 90                       - nop 3
+NewMovement:Update+7896: 49 BB 10 46 ED 2B 0E 02 00 00  - mov r11,UnityEngine.Mathf:MoveTowards
+NewMovement:Update+78a0: 41 FF D3                       - call r11
+NewMovement:Update+78a3: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+NewMovement:Update+78a7: F2 0F 5A E8                    - cvtsd2ss xmm5,xmm0
+// ---------- INJECTING HERE ----------
+NewMovement:Update+78ab: F3 0F 11 AE 20 02 00 00        - movss [rsi+00000220],xmm5
+// ---------- DONE INJECTING  ----------
+NewMovement:Update+78b3: 48 8B 46 40                    - mov rax,[rsi+40]
+NewMovement:Update+78b7: 0F B6 40 44                    - movzx eax,byte ptr [rax+44]
+NewMovement:Update+78bb: 85 C0                          - test eax,eax
+NewMovement:Update+78bd: 75 34                          - jne NewMovement:Update+78f3
+NewMovement:Update+78bf: 48 8B 8E 40 01 00 00           - mov rcx,[rsi+00000140]
+NewMovement:Update+78c6: 33 D2                          - xor edx,edx
+NewMovement:Update+78c8: 48 8D 64 24 00                 - lea rsp,[rsp+00]
+NewMovement:Update+78cd: 90                             - nop 
+NewMovement:Update+78ce: 49 BB E0 D4 AE 26 0E 02 00 00  - mov r11,UnityEngine.Object:op_Inequality
+NewMovement:Update+78d8: 41 FF D3                       - call r11
+}
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>41</ID>
+      <Description>"Player Values"</Description>
+      <Options moManualExpandCollapse="1"/>
+      <Color>4080FF</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>37</ID>
+          <Description>"Wall Jump Power"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>4080FF</Color>
+          <VariableType>Float</VariableType>
+          <Address>"UnityPlayer.dll"+017E1C30</Address>
+          <Offsets>
+            <Offset>1BC</Offset>
+            <Offset>28</Offset>
+            <Offset>38</Offset>
+            <Offset>B8</Offset>
+            <Offset>80</Offset>
+            <Offset>10</Offset>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>38</ID>
+          <Description>"Jump Power"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>4080FF</Color>
+          <VariableType>Float</VariableType>
+          <Address>"UnityPlayer.dll"+017E1C30</Address>
+          <Offsets>
+            <Offset>1B4</Offset>
+            <Offset>28</Offset>
+            <Offset>38</Offset>
+            <Offset>B8</Offset>
+            <Offset>80</Offset>
+            <Offset>10</Offset>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>39</ID>
+          <Description>"Walk Speed"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>4080FF</Color>
+          <VariableType>Float</VariableType>
+          <Address>"UnityPlayer.dll"+017E1C30</Address>
+          <Offsets>
+            <Offset>1B0</Offset>
+            <Offset>28</Offset>
+            <Offset>38</Offset>
+            <Offset>B8</Offset>
+            <Offset>80</Offset>
+            <Offset>10</Offset>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>35</ID>
+          <Description>"Health"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>4080FF</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>"UnityPlayer.dll"+017E1C30</Address>
+          <Offsets>
+            <Offset>21C</Offset>
+            <Offset>28</Offset>
+            <Offset>38</Offset>
+            <Offset>B8</Offset>
+            <Offset>80</Offset>
+            <Offset>10</Offset>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>36</ID>
+          <Description>"AntiHealth"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>4080FF</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>"UnityPlayer.dll"+017E1C30</Address>
+          <Offsets>
+            <Offset>220</Offset>
+            <Offset>28</Offset>
+            <Offset>38</Offset>
+            <Offset>B8</Offset>
+            <Offset>80</Offset>
+            <Offset>10</Offset>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>40</ID>
+          <Description>"Dash"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>4080FF</Color>
+          <VariableType>Float</VariableType>
+          <Address>"UnityPlayer.dll"+017E1C30</Address>
+          <Offsets>
+            <Offset>28C</Offset>
+            <Offset>28</Offset>
+            <Offset>38</Offset>
+            <Offset>B8</Offset>
+            <Offset>80</Offset>
+            <Offset>10</Offset>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>34</ID>
+      <Description>"Base (New Movement)"</Description>
+      <ShowAsHex>1</ShowAsHex>
+      <ShowAsSigned>0</ShowAsSigned>
+      <Color>4080FF</Color>
+      <VariableType>Array of byte</VariableType>
+      <ByteLength>10</ByteLength>
+      <Address>"UnityPlayer.dll"+017E1C30</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>28</Offset>
+        <Offset>38</Offset>
+        <Offset>B8</Offset>
+        <Offset>80</Offset>
+        <Offset>10</Offset>
+        <Offset>0</Offset>
+      </Offsets>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Structures StructVersion="2">
+    <Structure Name="NewMovement" AutoFill="0" AutoCreate="1" DefaultHex="0" AutoDestroy="0" DoNotSaveLocal="0" RLECompression="1" AutoCreateStructsize="4096">
+      <Elements>
+        <Element Offset="16" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000010" Description="m_CachedPtr" DisplayMethod="unsigned integer"/>
+        <Element Offset="24" Vartype="Pointer" Bytesize="8" OffsetHex="00000018" Description="inman" DisplayMethod="unsigned integer"/>
+        <Element Offset="32" Vartype="Pointer" Bytesize="8" OffsetHex="00000020" Description="asscon" DisplayMethod="unsigned integer"/>
+        <Element Offset="40" Vartype="Pointer" Bytesize="8" OffsetHex="00000028" Description="rb" DisplayMethod="unsigned integer"/>
+        <Element Offset="48" Vartype="Pointer" Bytesize="8" OffsetHex="00000030" Description="anim" DisplayMethod="unsigned integer"/>
+        <Element Offset="56" Vartype="Pointer" Bytesize="8" OffsetHex="00000038" Description="forwardPoint" DisplayMethod="unsigned integer"/>
+        <Element Offset="64" Vartype="Pointer" Bytesize="8" OffsetHex="00000040" Description="gc" DisplayMethod="unsigned integer"/>
+        <Element Offset="72" Vartype="Pointer" Bytesize="8" OffsetHex="00000048" Description="slopeCheck" DisplayMethod="unsigned integer"/>
+        <Element Offset="80" Vartype="Pointer" Bytesize="8" OffsetHex="00000050" Description="wc" DisplayMethod="unsigned integer"/>
+        <Element Offset="88" Vartype="Pointer" Bytesize="8" OffsetHex="00000058" Description="pa" DisplayMethod="unsigned integer"/>
+        <Element Offset="96" Vartype="Pointer" Bytesize="8" OffsetHex="00000060" Description="aud" DisplayMethod="unsigned integer"/>
+        <Element Offset="104" Vartype="Pointer" Bytesize="8" OffsetHex="00000068" Description="aud2" DisplayMethod="unsigned integer"/>
+        <Element Offset="112" Vartype="Pointer" Bytesize="8" OffsetHex="00000070" Description="aud3" DisplayMethod="unsigned integer"/>
+        <Element Offset="120" Vartype="Pointer" Bytesize="8" OffsetHex="00000078" Description="jumpSound" DisplayMethod="unsigned integer"/>
+        <Element Offset="128" Vartype="Pointer" Bytesize="8" OffsetHex="00000080" Description="landingSound" DisplayMethod="unsigned integer"/>
+        <Element Offset="136" Vartype="Pointer" Bytesize="8" OffsetHex="00000088" Description="finalWallJump" DisplayMethod="unsigned integer"/>
+        <Element Offset="144" Vartype="Pointer" Bytesize="8" OffsetHex="00000090" Description="hurtScreen" DisplayMethod="unsigned integer"/>
+        <Element Offset="152" Vartype="Pointer" Bytesize="8" OffsetHex="00000098" Description="hurtAud" DisplayMethod="unsigned integer"/>
+        <Element Offset="160" Vartype="Pointer" Bytesize="8" OffsetHex="000000A0" Description="blackScreen" DisplayMethod="unsigned integer"/>
+        <Element Offset="168" Vartype="Pointer" Bytesize="8" OffsetHex="000000A8" Description="youDiedText" DisplayMethod="unsigned integer"/>
+        <Element Offset="176" Vartype="Pointer" Bytesize="8" OffsetHex="000000B0" Description="hpFlash" DisplayMethod="unsigned integer"/>
+        <Element Offset="184" Vartype="Pointer" Bytesize="8" OffsetHex="000000B8" Description="antiHpFlash" DisplayMethod="unsigned integer"/>
+        <Element Offset="192" Vartype="Pointer" Bytesize="8" OffsetHex="000000C0" Description="greenHpAud" DisplayMethod="unsigned integer"/>
+        <Element Offset="200" Vartype="Pointer" Bytesize="8" OffsetHex="000000C8" Description="dodgeSound" DisplayMethod="unsigned integer"/>
+        <Element Offset="208" Vartype="Pointer" Bytesize="8" OffsetHex="000000D0" Description="cc" DisplayMethod="unsigned integer"/>
+        <Element Offset="216" Vartype="Pointer" Bytesize="8" OffsetHex="000000D8" Description="staminaFailSound" DisplayMethod="unsigned integer"/>
+        <Element Offset="224" Vartype="Pointer" Bytesize="8" OffsetHex="000000E0" Description="screenHud" DisplayMethod="unsigned integer"/>
+        <Element Offset="232" Vartype="Pointer" Bytesize="8" OffsetHex="000000E8" Description="dodgeParticle" DisplayMethod="unsigned integer"/>
+        <Element Offset="240" Vartype="Pointer" Bytesize="8" OffsetHex="000000F0" Description="scrnBlood" DisplayMethod="unsigned integer"/>
+        <Element Offset="248" Vartype="Pointer" Bytesize="8" OffsetHex="000000F8" Description="fullHud" DisplayMethod="unsigned integer"/>
+        <Element Offset="256" Vartype="Pointer" Bytesize="8" OffsetHex="00000100" Description="hudCam" DisplayMethod="unsigned integer"/>
+        <Element Offset="264" Vartype="Pointer" Bytesize="8" OffsetHex="00000108" Description="revolver" DisplayMethod="unsigned integer"/>
+        <Element Offset="272" Vartype="Pointer" Bytesize="8" OffsetHex="00000110" Description="shud" DisplayMethod="unsigned integer"/>
+        <Element Offset="280" Vartype="Pointer" Bytesize="8" OffsetHex="00000118" Description="scrapePrefab" DisplayMethod="unsigned integer"/>
+        <Element Offset="288" Vartype="Pointer" Bytesize="8" OffsetHex="00000120" Description="scrapeParticle" DisplayMethod="unsigned integer"/>
+        <Element Offset="296" Vartype="Pointer" Bytesize="8" OffsetHex="00000128" Description="scalc" DisplayMethod="unsigned integer"/>
+        <Element Offset="304" Vartype="Pointer" Bytesize="8" OffsetHex="00000130" Description="impactDust" DisplayMethod="unsigned integer"/>
+        <Element Offset="312" Vartype="Pointer" Bytesize="8" OffsetHex="00000138" Description="fallParticle" DisplayMethod="unsigned integer"/>
+        <Element Offset="320" Vartype="Pointer" Bytesize="8" OffsetHex="00000140" Description="currentFallParticle" DisplayMethod="unsigned integer"/>
+        <Element Offset="328" Vartype="Pointer" Bytesize="8" OffsetHex="00000148" Description="playerCollider" DisplayMethod="unsigned integer"/>
+        <Element Offset="336" Vartype="Pointer" Bytesize="8" OffsetHex="00000150" Description="slideParticle" DisplayMethod="unsigned integer"/>
+        <Element Offset="344" Vartype="Pointer" Bytesize="8" OffsetHex="00000158" Description="currentSlideParticle" DisplayMethod="unsigned integer"/>
+        <Element Offset="352" Vartype="Pointer" Bytesize="8" OffsetHex="00000160" Description="slideScrapePrefab" DisplayMethod="unsigned integer"/>
+        <Element Offset="360" Vartype="Pointer" Bytesize="8" OffsetHex="00000168" Description="slideScrape" DisplayMethod="unsigned integer"/>
+        <Element Offset="368" Vartype="Pointer" Bytesize="8" OffsetHex="00000170" Description="slideStopSound" DisplayMethod="unsigned integer"/>
+        <Element Offset="376" Vartype="Pointer" Bytesize="8" OffsetHex="00000178" Description="gunc" DisplayMethod="unsigned integer"/>
+        <Element Offset="384" Vartype="Pointer" Bytesize="8" OffsetHex="00000180" Description="punch" DisplayMethod="unsigned integer"/>
+        <Element Offset="392" Vartype="Pointer" Bytesize="8" OffsetHex="00000188" Description="dashJumpSound" DisplayMethod="unsigned integer"/>
+        <Element Offset="400" Vartype="Pointer" Bytesize="8" OffsetHex="00000190" Description="quakeJumpSound" DisplayMethod="unsigned integer"/>
+        <Element Offset="408" Vartype="Pointer" Bytesize="8" OffsetHex="00000198" Description="groundProperties" DisplayMethod="unsigned integer"/>
+        <Element Offset="416" Vartype="Pointer" Bytesize="8" OffsetHex="000001A0" Description="ridingRocket" DisplayMethod="unsigned integer"/>
+        <Element Offset="424" Vartype="Byte" Bytesize="1" OffsetHex="000001A8" Description="modNoDashSlide" DisplayMethod="unsigned integer"/>
+        <Element Offset="425" Vartype="Byte" Bytesize="1" OffsetHex="000001A9" Description="modNoJump" DisplayMethod="unsigned integer"/>
+        <Element Offset="428" Vartype="Float" Bytesize="4" OffsetHex="000001AC" Description="modForcedFrictionMultip" DisplayMethod="unsigned integer"/>
+        <Element Offset="432" Vartype="Float" Bytesize="4" OffsetHex="000001B0" Description="walkSpeed" DisplayMethod="unsigned integer"/>
+        <Element Offset="436" Vartype="Float" Bytesize="4" OffsetHex="000001B4" Description="jumpPower" DisplayMethod="unsigned integer"/>
+        <Element Offset="440" Vartype="Float" Bytesize="4" OffsetHex="000001B8" Description="airAcceleration" DisplayMethod="unsigned integer"/>
+        <Element Offset="444" Vartype="Float" Bytesize="4" OffsetHex="000001BC" Description="wallJumpPower" DisplayMethod="unsigned integer"/>
+        <Element Offset="448" Vartype="Byte" Bytesize="1" OffsetHex="000001C0" Description="jumpCooldown" DisplayMethod="unsigned integer"/>
+        <Element Offset="449" Vartype="Byte" Bytesize="1" OffsetHex="000001C1" Description="falling" DisplayMethod="unsigned integer"/>
+        <Element Offset="452" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001C4" Description="movementDirection" DisplayMethod="unsigned integer"/>
+        <Element Offset="464" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001D0" Description="movementDirection2" DisplayMethod="unsigned integer"/>
+        <Element Offset="476" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001DC" Description="airDirection" DisplayMethod="unsigned integer"/>
+        <Element Offset="488" Vartype="Float" Bytesize="4" OffsetHex="000001E8" Description="timeBetweenSteps" DisplayMethod="unsigned integer"/>
+        <Element Offset="492" Vartype="Float" Bytesize="4" OffsetHex="000001EC" Description="stepTime" DisplayMethod="unsigned integer"/>
+        <Element Offset="496" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001F0" Description="currentStep" DisplayMethod="unsigned integer"/>
+        <Element Offset="500" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001F4" Description="tempRotation" DisplayMethod="unsigned integer"/>
+        <Element Offset="516" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000204" Description="wallJumpPos" DisplayMethod="unsigned integer"/>
+        <Element Offset="528" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000210" Description="currentWallJumps" DisplayMethod="unsigned integer"/>
+        <Element Offset="532" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000214" Description="currentSound" DisplayMethod="unsigned integer"/>
+        <Element Offset="536" Vartype="Byte" Bytesize="1" OffsetHex="00000218" Description="walking" DisplayMethod="unsigned integer"/>
+        <Element Offset="540" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000021C" Description="hp" DisplayMethod="unsigned integer"/>
+        <Element Offset="544" Vartype="Float" Bytesize="4" OffsetHex="00000220" Description="antiHp" DisplayMethod="unsigned integer"/>
+        <Element Offset="548" Vartype="Float" Bytesize="4" OffsetHex="00000224" Description="antiHpCooldown" DisplayMethod="unsigned integer"/>
+        <Element Offset="552" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000228" Description="hurtColor" DisplayMethod="unsigned integer"/>
+        <Element Offset="568" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000238" Description="currentColor" DisplayMethod="unsigned integer"/>
+        <Element Offset="584" Vartype="Byte" Bytesize="1" OffsetHex="00000248" Description="hurting" DisplayMethod="unsigned integer"/>
+        <Element Offset="585" Vartype="Byte" Bytesize="1" OffsetHex="00000249" Description="dead" DisplayMethod="unsigned integer"/>
+        <Element Offset="586" Vartype="Byte" Bytesize="1" OffsetHex="0000024A" Description="endlessMode" DisplayMethod="unsigned integer"/>
+        <Element Offset="588" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000024C" Description="blackColor" DisplayMethod="unsigned integer"/>
+        <Element Offset="604" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000025C" Description="youDiedColor" DisplayMethod="unsigned integer"/>
+        <Element Offset="620" Vartype="Float" Bytesize="4" OffsetHex="0000026C" Description="currentAllPitch" DisplayMethod="unsigned integer"/>
+        <Element Offset="624" Vartype="Float" Bytesize="4" OffsetHex="00000270" Description="currentAllVolume" DisplayMethod="unsigned integer"/>
+        <Element Offset="628" Vartype="Byte" Bytesize="1" OffsetHex="00000274" Description="boost" DisplayMethod="unsigned integer"/>
+        <Element Offset="632" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000278" Description="dodgeDirection" DisplayMethod="unsigned integer"/>
+        <Element Offset="644" Vartype="Float" Bytesize="4" OffsetHex="00000284" Description="boostLeft" DisplayMethod="unsigned integer"/>
+        <Element Offset="648" Vartype="Float" Bytesize="4" OffsetHex="00000288" Description="dashStorage" DisplayMethod="unsigned integer"/>
+        <Element Offset="652" Vartype="Float" Bytesize="4" OffsetHex="0000028C" Description="boostCharge" DisplayMethod="unsigned integer"/>
+        <Element Offset="656" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000290" Description="hudOriginalPos" DisplayMethod="unsigned integer"/>
+        <Element Offset="668" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000029C" Description="camOriginalPos" DisplayMethod="unsigned integer"/>
+        <Element Offset="680" Vartype="4 Bytes" Bytesize="4" OffsetHex="000002A8" Description="defaultRBConstraints" DisplayMethod="unsigned integer"/>
+        <Element Offset="684" Vartype="4 Bytes" Bytesize="4" OffsetHex="000002AC" Description="lmask" DisplayMethod="unsigned integer"/>
+        <Element Offset="688" Vartype="Byte" Bytesize="1" OffsetHex="000002B0" Description="activated" DisplayMethod="unsigned integer"/>
+        <Element Offset="692" Vartype="4 Bytes" Bytesize="4" OffsetHex="000002B4" Description="gamepadFreezeCount" DisplayMethod="unsigned integer"/>
+        <Element Offset="696" Vartype="Float" Bytesize="4" OffsetHex="000002B8" Description="fallSpeed" DisplayMethod="unsigned integer"/>
+        <Element Offset="700" Vartype="Byte" Bytesize="1" OffsetHex="000002BC" Description="jumping" DisplayMethod="unsigned integer"/>
+        <Element Offset="704" Vartype="Float" Bytesize="4" OffsetHex="000002C0" Description="fallTime" DisplayMethod="unsigned integer"/>
+        <Element Offset="708" Vartype="Byte" Bytesize="1" OffsetHex="000002C4" Description="sliding" DisplayMethod="unsigned integer"/>
+        <Element Offset="712" Vartype="Float" Bytesize="4" OffsetHex="000002C8" Description="slideSafety" DisplayMethod="unsigned integer"/>
+        <Element Offset="716" Vartype="4 Bytes" Bytesize="4" OffsetHex="000002CC" Description="slideMovDirection" DisplayMethod="unsigned integer"/>
+        <Element Offset="728" Vartype="Byte" Bytesize="1" OffsetHex="000002D8" Description="crouching" DisplayMethod="unsigned integer"/>
+        <Element Offset="729" Vartype="Byte" Bytesize="1" OffsetHex="000002D9" Description="standing" DisplayMethod="unsigned integer"/>
+        <Element Offset="730" Vartype="Byte" Bytesize="1" OffsetHex="000002DA" Description="rising" DisplayMethod="unsigned integer"/>
+        <Element Offset="731" Vartype="Byte" Bytesize="1" OffsetHex="000002DB" Description="slideEnding" DisplayMethod="unsigned integer"/>
+        <Element Offset="732" Vartype="4 Bytes" Bytesize="4" OffsetHex="000002DC" Description="groundCheckPos" DisplayMethod="unsigned integer"/>
+        <Element Offset="744" Vartype="Float" Bytesize="4" OffsetHex="000002E8" Description="currentSpeed" DisplayMethod="unsigned integer"/>
+        <Element Offset="748" Vartype="Byte" Bytesize="1" OffsetHex="000002EC" Description="slowMode" DisplayMethod="unsigned integer"/>
+        <Element Offset="752" Vartype="4 Bytes" Bytesize="4" OffsetHex="000002F0" Description="pushForce" DisplayMethod="unsigned integer"/>
+        <Element Offset="764" Vartype="Float" Bytesize="4" OffsetHex="000002FC" Description="slideLength" DisplayMethod="unsigned integer"/>
+        <Element Offset="768" Vartype="Float" Bytesize="4" OffsetHex="00000300" Description="longestSlide" DisplayMethod="unsigned integer"/>
+        <Element Offset="772" Vartype="Float" Bytesize="4" OffsetHex="00000304" Description="preSlideSpeed" DisplayMethod="unsigned integer"/>
+        <Element Offset="776" Vartype="Float" Bytesize="4" OffsetHex="00000308" Description="preSlideDelay" DisplayMethod="unsigned integer"/>
+        <Element Offset="780" Vartype="Byte" Bytesize="1" OffsetHex="0000030C" Description="quakeJump" DisplayMethod="unsigned integer"/>
+        <Element Offset="781" Vartype="Byte" Bytesize="1" OffsetHex="0000030D" Description="exploded" DisplayMethod="unsigned integer"/>
+        <Element Offset="784" Vartype="Float" Bytesize="4" OffsetHex="00000310" Description="clingFade" DisplayMethod="unsigned integer"/>
+        <Element Offset="788" Vartype="Byte" Bytesize="1" OffsetHex="00000314" Description="stillHolding" DisplayMethod="unsigned integer"/>
+        <Element Offset="792" Vartype="Float" Bytesize="4" OffsetHex="00000318" Description="slamForce" DisplayMethod="unsigned integer"/>
+        <Element Offset="796" Vartype="Byte" Bytesize="1" OffsetHex="0000031C" Description="slamStorage" DisplayMethod="unsigned integer"/>
+        <Element Offset="797" Vartype="Byte" Bytesize="1" OffsetHex="0000031D" Description="launched" DisplayMethod="unsigned integer"/>
+        <Element Offset="800" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000320" Description="difficulty" DisplayMethod="unsigned integer"/>
+        <Element Offset="804" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000324" Description="sameCheckpointRestarts" DisplayMethod="unsigned integer"/>
+        <Element Offset="808" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000328" Description="rocketJumps" DisplayMethod="unsigned integer"/>
+        <Element Offset="812" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000032C" Description="rocketRides" DisplayMethod="unsigned integer"/>
+      </Elements>
+    </Structure>
+    <Structure Name="Revolver" AutoFill="0" AutoCreate="1" DefaultHex="0" AutoDestroy="0" DoNotSaveLocal="0" RLECompression="1" AutoCreateStructsize="4096">
+      <Elements>
+        <Element Offset="16" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000010" Description="m_CachedPtr" DisplayMethod="unsigned integer"/>
+        <Element Offset="24" Vartype="Pointer" Bytesize="8" OffsetHex="00000018" Description="inman" DisplayMethod="unsigned integer"/>
+        <Element Offset="32" Vartype="Pointer" Bytesize="8" OffsetHex="00000020" Description="wid" DisplayMethod="unsigned integer"/>
+        <Element Offset="40" Vartype="Pointer" Bytesize="8" OffsetHex="00000028" Description="kickBackPos" DisplayMethod="unsigned integer"/>
+        <Element Offset="48" Vartype="Pointer" Bytesize="8" OffsetHex="00000030" Description="gunAud" DisplayMethod="unsigned integer"/>
+        <Element Offset="56" Vartype="Pointer" Bytesize="8" OffsetHex="00000038" Description="superGunAud" DisplayMethod="unsigned integer"/>
+        <Element Offset="64" Vartype="Pointer" Bytesize="8" OffsetHex="00000040" Description="gunShots" DisplayMethod="unsigned integer"/>
+        <Element Offset="72" Vartype="Pointer" Bytesize="8" OffsetHex="00000048" Description="superGunShots" DisplayMethod="unsigned integer"/>
+        <Element Offset="80" Vartype="Pointer" Bytesize="8" OffsetHex="00000050" Description="gunBarrel" DisplayMethod="unsigned integer"/>
+        <Element Offset="88" Vartype="Pointer" Bytesize="8" OffsetHex="00000058" Description="revolverBeam" DisplayMethod="unsigned integer"/>
+        <Element Offset="96" Vartype="Pointer" Bytesize="8" OffsetHex="00000060" Description="revolverBeamSuper" DisplayMethod="unsigned integer"/>
+        <Element Offset="104" Vartype="Pointer" Bytesize="8" OffsetHex="00000068" Description="allHits" DisplayMethod="unsigned integer"/>
+        <Element Offset="112" Vartype="Pointer" Bytesize="8" OffsetHex="00000070" Description="chargeEffect" DisplayMethod="unsigned integer"/>
+        <Element Offset="120" Vartype="Pointer" Bytesize="8" OffsetHex="00000078" Description="ceaud" DisplayMethod="unsigned integer"/>
+        <Element Offset="128" Vartype="Pointer" Bytesize="8" OffsetHex="00000080" Description="celight" DisplayMethod="unsigned integer"/>
+        <Element Offset="136" Vartype="Pointer" Bytesize="8" OffsetHex="00000088" Description="camObj" DisplayMethod="unsigned integer"/>
+        <Element Offset="144" Vartype="Pointer" Bytesize="8" OffsetHex="00000090" Description="cam" DisplayMethod="unsigned integer"/>
+        <Element Offset="152" Vartype="Pointer" Bytesize="8" OffsetHex="00000098" Description="cc" DisplayMethod="unsigned integer"/>
+        <Element Offset="160" Vartype="Pointer" Bytesize="8" OffsetHex="000000A0" Description="beamDirectionSetter" DisplayMethod="unsigned integer"/>
+        <Element Offset="168" Vartype="Pointer" Bytesize="8" OffsetHex="000000A8" Description="screenMR" DisplayMethod="unsigned integer"/>
+        <Element Offset="176" Vartype="Pointer" Bytesize="8" OffsetHex="000000B0" Description="batteryMat" DisplayMethod="unsigned integer"/>
+        <Element Offset="184" Vartype="Pointer" Bytesize="8" OffsetHex="000000B8" Description="batteryFull" DisplayMethod="unsigned integer"/>
+        <Element Offset="192" Vartype="Pointer" Bytesize="8" OffsetHex="000000C0" Description="batteryMid" DisplayMethod="unsigned integer"/>
+        <Element Offset="200" Vartype="Pointer" Bytesize="8" OffsetHex="000000C8" Description="batteryLow" DisplayMethod="unsigned integer"/>
+        <Element Offset="208" Vartype="Pointer" Bytesize="8" OffsetHex="000000D0" Description="batteryCharges" DisplayMethod="unsigned integer"/>
+        <Element Offset="216" Vartype="Pointer" Bytesize="8" OffsetHex="000000D8" Description="screenAud" DisplayMethod="unsigned integer"/>
+        <Element Offset="224" Vartype="Pointer" Bytesize="8" OffsetHex="000000E0" Description="chargedSound" DisplayMethod="unsigned integer"/>
+        <Element Offset="232" Vartype="Pointer" Bytesize="8" OffsetHex="000000E8" Description="chargingSound" DisplayMethod="unsigned integer"/>
+        <Element Offset="240" Vartype="Pointer" Bytesize="8" OffsetHex="000000F0" Description="enemy" DisplayMethod="unsigned integer"/>
+        <Element Offset="248" Vartype="Pointer" Bytesize="8" OffsetHex="000000F8" Description="cjs" DisplayMethod="unsigned integer"/>
+        <Element Offset="256" Vartype="Pointer" Bytesize="8" OffsetHex="00000100" Description="cj" DisplayMethod="unsigned integer"/>
+        <Element Offset="264" Vartype="Pointer" Bytesize="8" OffsetHex="00000108" Description="limb" DisplayMethod="unsigned integer"/>
+        <Element Offset="272" Vartype="Pointer" Bytesize="8" OffsetHex="00000110" Description="firstChild" DisplayMethod="unsigned integer"/>
+        <Element Offset="280" Vartype="Pointer" Bytesize="8" OffsetHex="00000118" Description="twirlBone" DisplayMethod="unsigned integer"/>
+        <Element Offset="288" Vartype="Pointer" Bytesize="8" OffsetHex="00000120" Description="twirlSprite" DisplayMethod="unsigned integer"/>
+        <Element Offset="296" Vartype="Pointer" Bytesize="8" OffsetHex="00000128" Description="twirlShotSound" DisplayMethod="unsigned integer"/>
+        <Element Offset="304" Vartype="Pointer" Bytesize="8" OffsetHex="00000130" Description="currentDrip" DisplayMethod="unsigned integer"/>
+        <Element Offset="312" Vartype="Pointer" Bytesize="8" OffsetHex="00000138" Description="coin" DisplayMethod="unsigned integer"/>
+        <Element Offset="320" Vartype="Pointer" Bytesize="8" OffsetHex="00000140" Description="cylinder" DisplayMethod="unsigned integer"/>
+        <Element Offset="328" Vartype="Pointer" Bytesize="8" OffsetHex="00000148" Description="rimLight" DisplayMethod="unsigned integer"/>
+        <Element Offset="336" Vartype="Pointer" Bytesize="8" OffsetHex="00000150" Description="gc" DisplayMethod="unsigned integer"/>
+        <Element Offset="344" Vartype="Pointer" Bytesize="8" OffsetHex="00000158" Description="anim" DisplayMethod="unsigned integer"/>
+        <Element Offset="352" Vartype="Pointer" Bytesize="8" OffsetHex="00000160" Description="punch" DisplayMethod="unsigned integer"/>
+        <Element Offset="360" Vartype="Pointer" Bytesize="8" OffsetHex="00000168" Description="nmov" DisplayMethod="unsigned integer"/>
+        <Element Offset="368" Vartype="Pointer" Bytesize="8" OffsetHex="00000170" Description="wpos" DisplayMethod="unsigned integer"/>
+        <Element Offset="376" Vartype="Pointer" Bytesize="8" OffsetHex="00000178" Description="coinPanels" DisplayMethod="unsigned integer"/>
+        <Element Offset="384" Vartype="Pointer" Bytesize="8" OffsetHex="00000180" Description="coinPanelsCharged" DisplayMethod="unsigned integer"/>
+        <Element Offset="392" Vartype="Pointer" Bytesize="8" OffsetHex="00000188" Description="wc" DisplayMethod="unsigned integer"/>
+        <Element Offset="400" Vartype="Pointer" Bytesize="8" OffsetHex="00000190" Description="targeter" DisplayMethod="unsigned integer"/>
+        <Element Offset="408" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000198" Description="gunVariation" DisplayMethod="unsigned integer"/>
+        <Element Offset="412" Vartype="Byte" Bytesize="1" OffsetHex="0000019C" Description="altVersion" DisplayMethod="unsigned integer"/>
+        <Element Offset="416" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001A0" Description="currentGunShot" DisplayMethod="unsigned integer"/>
+        <Element Offset="420" Vartype="Byte" Bytesize="1" OffsetHex="000001A4" Description="gunReady" DisplayMethod="unsigned integer"/>
+        <Element Offset="421" Vartype="Byte" Bytesize="1" OffsetHex="000001A5" Description="shootReady" DisplayMethod="unsigned integer"/>
+        <Element Offset="422" Vartype="Byte" Bytesize="1" OffsetHex="000001A6" Description="pierceReady" DisplayMethod="unsigned integer"/>
+        <Element Offset="424" Vartype="Float" Bytesize="4" OffsetHex="000001A8" Description="shootCharge" DisplayMethod="unsigned integer"/>
+        <Element Offset="428" Vartype="Float" Bytesize="4" OffsetHex="000001AC" Description="pierceCharge" DisplayMethod="unsigned integer"/>
+        <Element Offset="432" Vartype="Byte" Bytesize="1" OffsetHex="000001B0" Description="chargingPierce" DisplayMethod="unsigned integer"/>
+        <Element Offset="436" Vartype="Float" Bytesize="4" OffsetHex="000001B4" Description="pierceShotCharge" DisplayMethod="unsigned integer"/>
+        <Element Offset="440" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001B8" Description="shotHitPoint" DisplayMethod="unsigned integer"/>
+        <Element Offset="452" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001C4" Description="hit" DisplayMethod="unsigned integer"/>
+        <Element Offset="496" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001F0" Description="currentHit" DisplayMethod="unsigned integer"/>
+        <Element Offset="500" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001F4" Description="currentHitMultiplier" DisplayMethod="unsigned integer"/>
+        <Element Offset="504" Vartype="Float" Bytesize="4" OffsetHex="000001F8" Description="recoilFOV" DisplayMethod="unsigned integer"/>
+        <Element Offset="508" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001FC" Description="tempCamPos" DisplayMethod="unsigned integer"/>
+        <Element Offset="520" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000208" Description="beamReflectPos" DisplayMethod="unsigned integer"/>
+        <Element Offset="532" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000214" Description="bodiesPierced" DisplayMethod="unsigned integer"/>
+        <Element Offset="536" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000218" Description="bulletForce" DisplayMethod="unsigned integer"/>
+        <Element Offset="540" Vartype="Byte" Bytesize="1" OffsetHex="0000021C" Description="slowMo" DisplayMethod="unsigned integer"/>
+        <Element Offset="541" Vartype="Byte" Bytesize="1" OffsetHex="0000021D" Description="timeStopped" DisplayMethod="unsigned integer"/>
+        <Element Offset="544" Vartype="Float" Bytesize="4" OffsetHex="00000220" Description="untilTimeResume" DisplayMethod="unsigned integer"/>
+        <Element Offset="548" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000224" Description="enemiesLeftToHit" DisplayMethod="unsigned integer"/>
+        <Element Offset="552" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000228" Description="enemiesPierced" DisplayMethod="unsigned integer"/>
+        <Element Offset="556" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000022C" Description="subHit" DisplayMethod="unsigned integer"/>
+        <Element Offset="600" Vartype="Float" Bytesize="4" OffsetHex="00000258" Description="damageMultiplier" DisplayMethod="unsigned integer"/>
+        <Element Offset="604" Vartype="Float" Bytesize="4" OffsetHex="0000025C" Description="latestTwirlRotation" DisplayMethod="unsigned integer"/>
+        <Element Offset="608" Vartype="Float" Bytesize="4" OffsetHex="00000260" Description="twirlLevel" DisplayMethod="unsigned integer"/>
+        <Element Offset="612" Vartype="Byte" Bytesize="1" OffsetHex="00000264" Description="twirlRecovery" DisplayMethod="unsigned integer"/>
+        <Element Offset="616" Vartype="Float" Bytesize="4" OffsetHex="00000268" Description="coinCharge" DisplayMethod="unsigned integer"/>
+      </Elements>
+    </Structure>
+  </Structures>
+</CheatTable>
